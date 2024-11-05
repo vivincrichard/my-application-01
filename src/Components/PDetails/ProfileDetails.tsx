@@ -162,16 +162,45 @@ interface Errors {
 function ProfileDetails () {
 
 
-  const { data, isLoading, isError } = listAllUser();
+  const {data: userList, isLoading, isError} = listAllUser();
 
-  console.log('data',data);
+  console.log('list',userList);
   
 
   return (
     <>
-    <h1>Hi</h1>
+      {isLoading ? (
+        <h3>Loading</h3>
+      ) : isError ? (
+        <h3>Error in Data</h3>
+      ) : (
+        <>
+          {userList && userList?.length && (
+            <table className="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userList?.map((user) => (
+                  <tr key={user?.id}>
+                    <td>{user?.id}</td>
+                    <td>{user?.name}</td>
+                    <td>{user?.contact}</td>
+                    <td>{user?.email}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
+      )}
     </>
-  )
+  );
 
 }
 export default ProfileDetails;

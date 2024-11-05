@@ -5,11 +5,14 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 
-export const listAllUser = async() => {
+export const listAllUser = () => {
   const {data,isLoading,isError} =   useQuery({
     queryKey: [QueryKeys.LIST_USER],
     queryFn: () => User.fetchAllUser()
   })
+
+  console.log('query',data);
+  
 
   return {data,isLoading,isError}
 }

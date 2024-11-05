@@ -47,19 +47,3 @@ export class User {
     return response.data;
   };
 }
-export const UserById = (id: number | null) => {
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: [QueryKeys.GET_USER, `ID-${id}`], // Key to identify this query in the cache
-    queryFn: () => User.fetchUserById(id), // Fetching the user by ID via the User service
-    enabled: false, // Initially disabling the query, it will only run when refetched
-  });
-
-  useEffect(() => {
-    if (id) {
-      // Only refetch when the ID is not null
-      refetch(); // Manually trigger the query to fetch the user data
-    }
-  }, [id]); // Effect depends on the `id`, so it will rerun when `id` changes
-
-  return { data, isLoading }; // Return the query result (data and loading state)
-};
