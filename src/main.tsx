@@ -10,7 +10,6 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <div
         style={{
-          background: "linear-gradient(#9198e5, #9198e5)",
           height: "100vh",
         }}
       >

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export interface IUserPayload {
+  id:number,
   name: string;
   contact: number;
   email: string;

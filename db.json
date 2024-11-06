@@ -2,33 +2,9 @@
   "user": [
     {
       "id": 1,
-      "name": "Vivin",
-      "contact": "123456789",
-      "email": "vivin@gmail.com"
-    },
-    {
-      "id": 2,
-      "name": "John Doe",
-      "contact": "987654321",
-      "email": "johndoe@example.com"
-    },
-    {
-      "id": 3,
-      "name": "Jane Smith",
-      "contact": "555555555",
-      "email": "janesmith@example.com"
-    },
-    {
-      "id": 4,
-      "name": "Alice Johnson",
-      "contact": "666666666",
-      "email": "alice.johnson@example.com"
-    },
-    {
-      "id": 5,
-      "name": "Bob Brown",
-      "contact": "777777777",
-      "email": "bob.brown@example.com"
+      "name": "Vivin C",
+      "contact": 9003360649,
+      "email": "vivincrichard@gmail.com"
     }
   ]
 }
