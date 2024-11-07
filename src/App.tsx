@@ -4,6 +4,7 @@ import Products from "./Components/Pages/Products";
 import Navbar from "./Components/Nav/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import ProfileDetails from "./Components/PDetails/ProfileDetails";
 
 function App() {
