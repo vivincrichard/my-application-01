@@ -6,5 +6,39 @@
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com"
     }
+  ],
+  "hospitals": [
+    {
+      "id": 1,
+      "hospitalName": "KMCH",
+      "registrationNo": 123456,
+      "location": {
+        "street": "Street 1",
+        "area": "Area 1",
+        "city": "City 1",
+        "state": "State 1",
+        "country": "Country 1",
+        "pincode": 10011
+      },
+      "users": {
+        "userId": 1
+      }
+    },
+    {
+      "id": 2,
+      "hospitalName": "City Health Care",
+      "registrationNo": 789101,
+      "location": {
+        "street": "Street 2",
+        "area": "Area 2",
+        "city": "City 2",
+        "state": "State 2",
+        "country": "Country 2",
+        "pincode": 20022
+      },
+      "users": {
+        "userId":1
+      }
+    }
   ]
 }
