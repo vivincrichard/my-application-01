@@ -3,7 +3,7 @@ import axios from "axios";
 export interface IHospitalPayload {
   id: number;
   hospitalName: string;
-  registrationNumber: number;
+  registrationNo: number;
   location: IHospitalLocation;
 }
 

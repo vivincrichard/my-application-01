@@ -28,7 +28,7 @@ function HospitalIndex() {
               <tr key={hospital.id}>
                 <td>{hospital.id}</td>
                 <td>{hospital.hospitalName}</td>
-                <td>{hospital.registrationNumber}</td>
+                <td>{hospital.registrationNo}</td>
               </tr>
             ))}
           </tbody>
