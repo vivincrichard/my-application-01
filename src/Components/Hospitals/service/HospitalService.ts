@@ -16,10 +16,6 @@ export interface IHospitalLocation {
   pincode: number;
 }
 
-export interface IHospitalList {
-  list:IHospitalPayload[];
-}
-
 export class Hospital {
   static create = async (data: IHospitalPayload) => {
     const response = await axios.post<IHospitalPayload>(
@@ -30,7 +26,7 @@ export class Hospital {
   };
 
   static fetchAll = async () => {
-    const response = await axios.get<IHospitalList[]>(
+    const response = await axios.get<IHospitalPayload[]>(
       "http://localhost:4000/hospitals"
     );
     return response.data;

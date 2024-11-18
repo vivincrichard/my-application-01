@@ -24,7 +24,7 @@ function HospitalIndex() {
           </thead>
           <tbody>
             {/* Directly map over the listHospital array */}
-            {listHospital?.list?.map((hospital) => (
+            {listHospital?.map((hospital) => (
               <tr key={hospital.id}>
                 <td>{hospital.id}</td>
                 <td>{hospital.hospitalName}</td>
