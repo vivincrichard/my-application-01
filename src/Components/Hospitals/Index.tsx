@@ -1,4 +1,6 @@
-import { fetchAllHospital } from "./query/HospitalQuery";
+import Slider from "../HOD/Slider";
+import CreateUpdateHospital from "./CreateUpdateHospital";
+import { fetchAllHospital, useCreateHospital } from "./query/HospitalQuery";
 
 function HospitalIndex() {
   const {
@@ -7,13 +9,30 @@ function HospitalIndex() {
     isError: listError,
   } = fetchAllHospital();
 
-  console.log('aaaaaa',listHospital);
-  
+  const { mutateAsync: createHospital } = useCreateHospital();
+
+  console.log("aaaaaa", listHospital);
 
   return (
     <>
-      <h1>Hospital</h1>
+      <Slider
+        header="Create Hospital"
+        id="hospitalCanvas"
+        width="50"
+        sliderBody={<CreateUpdateHospital />}
+      />
       <div className="container-fluid">
+        <h1>Hospital</h1>
+        <div className="d-flex justify-content-end">
+          <button
+            className="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#hospitalCanvas"
+          >
+            New
+          </button>
+        </div>
         <table className="table table-active">
           <thead>
             <tr>

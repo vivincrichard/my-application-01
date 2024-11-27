@@ -4,10 +4,10 @@ export interface IHospitalPayload {
   id: number;
   hospitalName: string;
   registrationNo: number;
-  location: IHospitalLocation;
+  location: ILocation;
 }
 
-export interface IHospitalLocation {
+export interface ILocation {
   street: string;
   area: string;
   city: string;
