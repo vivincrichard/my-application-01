@@ -1,7 +1,7 @@
 {
   "user": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Vivin C",
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com"
@@ -37,7 +37,7 @@
         "pincode": 20022
       },
       "users": {
-        "userId":1
+        "userId": 1
       }
     }
   ]

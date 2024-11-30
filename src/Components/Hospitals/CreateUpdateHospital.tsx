@@ -1,36 +1,70 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { fetchAllHospital, useCreateHospital } from "./query/HospitalQuery";
 import { IHospitalPayload } from "./service/HospitalService";
 import * as Yup from "yup";
-import { useRef } from "react";
-// interface IProps {
-//   hospital: IHospitalPayload;
-// }
+import { useRef, useState, useEffect } from "react";
+import { Country, State, City } from "country-state-city";
 
 function CreateUpdateHospital() {
   const formikRef: any = useRef();
 
   const { mutateAsync: createHospital } = useCreateHospital();
   const { data: listHospital } = fetchAllHospital();
+  const [countries, setCountries] = useState<any[]>([]);
+  const [states, setStates] = useState<any[]>([]);
+  const [cities, setCities] = useState<any[]>([]);
+
   const initialData = {
     hospitalName: "",
     registrationNo: "",
+    location: {
+      country: "",
+      state: "",
+      city: "",
+      pinCode: "",
+    },
   };
 
   const validationSchema = Yup.object({
-    hospitalName: Yup.string().required("Required"),
+    hospitalName: Yup.string().required("Hospital Name is required"),
     registrationNo: Yup.number()
-      .required("Required")
-      .typeError("Must be a number"),
+      .required("Registration No is required")
+      .typeError("Registration No must be a number"),
+    location: Yup.object({
+      country: Yup.string().required("Country is required"),
+      state: Yup.string().required("State is required"),
+      city: Yup.string().required("City is required"),
+      pinCode: Yup.number().required("PinCode is Required"),
+    }),
   });
 
   const findId = () => {
     if (!listHospital || listHospital.length === 0) return 1;
     else {
-      console.log("lllll", typeof (listHospital.length + 1));
-
       return listHospital.length + 1;
     }
+  };
+
+  useEffect(() => {
+    const countryList = Country.getAllCountries();
+    console.log("country", countryList);
+
+    setCountries(countryList);
+  }, []);
+
+  const handleCountryChange = (isoCode: string) => {
+    const stateList = State.getStatesOfCountry(isoCode);
+    console.log("state", stateList);
+
+    setStates(stateList);
+    setCities([]);
+  };
+
+  const handleStateChange = (isoCode: string) => {
+    const cityList = City.getCitiesOfState(states[0]?.countryCode, isoCode);
+    console.log("city", cityList);
+
+    setCities(cityList);
   };
 
   return (
@@ -47,23 +81,39 @@ function CreateUpdateHospital() {
             id: idLength,
             hospitalName: values?.hospitalName,
             registrationNo: Number(values?.registrationNo),
+            location: {
+              country: values.location?.country,
+              state: values.location?.state,
+              city: values.location?.city,
+              pincode: Number(values.location?.pinCode),
+            },
           };
 
           createHospital(payload);
         }}
       >
-        {({ values }) => (
+        {({ values, handleChange, setFieldValue }) => (
           <Form>
             <div className="form-group">
               <label htmlFor="hospitalName" className="form-label">
-                Hospital Name
-                <span className="text-danger">*</span>
+                Hospital Name <span className="text-danger">*</span>
               </label>
               <Field
                 type="text"
                 name="hospitalName"
                 id="hospitalName"
                 className="form-control"
+              />
+              {/* doubt */}
+              {/* in onecare we use this code :
+              <ErrorMessage name="country">
+                {(error) => <p className="text-danger">{error}</p>}
+              </ErrorMessage> */}
+              {/* instead of this code for ErrorMessage. why ?   */}
+              <ErrorMessage
+                name="hospitalName"
+                component="div"
+                className="text-danger"
               />
               <label htmlFor="registrationNo" className="form-label">
                 Registration No
@@ -74,12 +124,106 @@ function CreateUpdateHospital() {
                 id="registrationNo"
                 className="form-control"
               />
+              <ErrorMessage
+                name="registrationNo"
+                component="div"
+                className="text-danger"
+              />
+              <label htmlFor="country">Country</label>
+              <Field
+                as="select"
+                name="location.country"
+                id="country"
+                className="form-select"
+                onChange={(e: any) => {
+                  handleChange(e);
+                  handleCountryChange(e.target.value);
+                  setFieldValue("location.state", ""); // doubt
+                  setFieldValue("location.city", ""); // doubt
+                }}
+                value={values.location.country}
+              >
+                <option value="">Select Country</option>
+                {countries.map((country) => (
+                  <option key={country.isoCode} value={country.isoCode}>
+                    {country.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="location.country"
+                component="div"
+                className="text-danger"
+              />
+              <label htmlFor="state">State</label>
+              <Field
+                as="select"
+                name="location.state"
+                id="state"
+                className="form-select"
+                onChange={(e: any) => {
+                  handleChange(e);
+                  handleStateChange(e.target.value);
+                  setFieldValue("location.city", "");
+                }}
+                value={values.location.state}
+                disabled={!states.length}
+              >
+                <option value="">Select State</option>
+                {states.map((state) => (
+                  <option key={state.isoCode} value={state.isoCode}>
+                    {state.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="location.state"
+                component="div"
+                className="text-danger"
+              />
+              <label htmlFor="city">City</label>
+              <Field
+                as="select"
+                name="location.city"
+                id="city"
+                className="form-select"
+                value={values.location.city}
+                onChange={handleChange}
+                disabled={!cities.length}
+              >
+                <option value="">Select City</option>
+                {cities.map((city) => (
+                  <option key={city.name} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="location.city"
+                component="div"
+                className="text-danger"
+              />
+              <label htmlFor="pincode" className="form-label">
+                PinCode
+              </label>
+              <Field
+                type="number"
+                name="location.pinCode"
+                className="form-control"
+              />
+              <ErrorMessage
+                name="location.pinCode"
+                component="div"
+                className="text-danger"
+              />
               <div className="d-flex justify-content-end mt-2 gap-2">
                 <button
                   className="btn btn-light"
                   type="button"
                   onClick={() => {
                     formikRef.current.resetForm();
+                    setStates([]);
+                    setCities([]);
                   }}
                 >
                   Clear

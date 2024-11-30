@@ -8,12 +8,12 @@ export interface IHospitalPayload {
 }
 
 export interface ILocation {
-  street: string;
-  area: string;
+  street?: string;
+  area?: string;
   city: string;
   state: string;
   country: string;
-  pincode: number;
+  pincode?: number;
 }
 
 export class Hospital {
