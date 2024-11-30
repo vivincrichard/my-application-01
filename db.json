@@ -39,6 +39,17 @@
       "users": {
         "userId": 1
       }
+    },
+    {
+      "id": 3,
+      "hospitalName": "Vivin",
+      "registrationNo": 123456,
+      "location": {
+        "country": "IN",
+        "state": "TN",
+        "city": "Coimbatore",
+        "pincode": 641016
+      }
     }
   ]
 }

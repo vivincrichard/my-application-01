@@ -39,6 +39,10 @@ function HospitalIndex() {
               <th>Id</th>
               <th>Hospital Name</th>
               <th>Reg No</th>
+              <th>Country</th>
+              <th>State</th>
+              <th>City</th>
+              <th>PinCode</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +52,10 @@ function HospitalIndex() {
                 <td>{hospital.id}</td>
                 <td>{hospital.hospitalName}</td>
                 <td>{hospital.registrationNo}</td>
+                <td>{hospital?.location?.country}</td>
+                <td>{hospital?.location?.state}</td>
+                <td>{hospital?.location?.city}</td>
+                <td>{hospital?.location?.pincode}</td>
               </tr>
             ))}
           </tbody>
