@@ -4,7 +4,7 @@ export interface IHospitalPayload {
   id: number;
   hospitalName: string;
   registrationNo: number;
-  location: ILocation;
+  location?: ILocation;
 }
 
 export interface ILocation {

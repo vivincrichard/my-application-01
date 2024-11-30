@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { useCreateHospital } from "./query/HospitalQuery";
+import { fetchAllHospital, useCreateHospital } from "./query/HospitalQuery";
 import { IHospitalPayload } from "./service/HospitalService";
 import * as Yup from "yup";
 import { useRef } from "react";
@@ -11,18 +11,27 @@ function CreateUpdateHospital() {
   const formikRef: any = useRef();
 
   const { mutateAsync: createHospital } = useCreateHospital();
-
+  const { data: listHospital } = fetchAllHospital();
   const initialData = {
-    id: "",
     hospitalName: "",
     registrationNo: "",
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string().required("Required").max(10, "Less than 10 Characters"),
     hospitalName: Yup.string().required("Required"),
-    registrationNo: Yup.number().required("Required"),
+    registrationNo: Yup.number()
+      .required("Required")
+      .typeError("Must be a number"),
   });
+
+  const findId = () => {
+    if (!listHospital || listHospital.length === 0) return 1;
+    else {
+      console.log("lllll", typeof (listHospital.length + 1));
+
+      return listHospital.length + 1;
+    }
+  };
 
   return (
     <>
@@ -32,33 +41,47 @@ function CreateUpdateHospital() {
         validationSchema={validationSchema}
         enableReinitialize={true}
         onSubmit={(values) => {
-          console.log("values", values);
+          console.log("Form submitted with values:", values);
+          const idLength = findId();
+          const payload: IHospitalPayload = {
+            id: idLength,
+            hospitalName: values?.hospitalName,
+            registrationNo: Number(values?.registrationNo),
+          };
+
+          createHospital(payload);
         }}
       >
         {({ values }) => (
           <Form>
-            <div className="from-group">
-              <label htmlFor="name" className="form-label">
+            <div className="form-group">
+              <label htmlFor="hospitalName" className="form-label">
                 Hospital Name
                 <span className="text-danger">*</span>
               </label>
               <Field
                 type="text"
-                name="name"
-                id="name"
-                values={values?.hospitalName}
+                name="hospitalName"
+                id="hospitalName"
                 className="form-control"
               />
-              <label htmlFor="regNo">Registration No</label>
+              <label htmlFor="registrationNo" className="form-label">
+                Registration No
+              </label>
               <Field
                 type="number"
-                name="regNo"
-                id="regNo"
-                values={values?.registrationNo}
+                name="registrationNo"
+                id="registrationNo"
                 className="form-control"
               />
               <div className="d-flex justify-content-end mt-2 gap-2">
-                <button className="btn btn-light" type="button">
+                <button
+                  className="btn btn-light"
+                  type="button"
+                  onClick={() => {
+                    formikRef.current.resetForm();
+                  }}
+                >
                   Clear
                 </button>
                 <button type="submit" className="btn btn-primary">
