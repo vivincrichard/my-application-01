@@ -1,29 +1,37 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { fetchAllHospital, useCreateHospital } from "./query/HospitalQuery";
+import { fetchAllHospital, useCreateHospital, useFetchById } from "./query/HospitalQuery";
 import { IHospitalPayload } from "./service/HospitalService";
 import * as Yup from "yup";
 import { useRef, useState, useEffect } from "react";
 import { Country, State, City } from "country-state-city";
 
-function CreateUpdateHospital() {
+interface IProps {
+  selectedId: number;
+}
+
+function CreateUpdateHospital(props: IProps) {
   const formikRef: any = useRef();
 
-  const { mutateAsync: createHospital } = useCreateHospital();
-  const { data: listHospital } = fetchAllHospital();
   const [countries, setCountries] = useState<any[]>([]);
   const [states, setStates] = useState<any[]>([]);
   const [cities, setCities] = useState<any[]>([]);
 
+  const { mutateAsync: createHospital } = useCreateHospital();
+  const { data: listHospital } = fetchAllHospital();
+  const {data: fetchedId} = useFetchById(props?.selectedId)
+
+
   const initialData = {
-    hospitalName: "",
-    registrationNo: "",
+    hospitalName: props?.selectedId ? fetchedId?.hospitalName : "",
+    registrationNo: props?.selectedId ? fetchedId?.registrationNo : "",
     location: {
-      country: "",
-      state: "",
-      city: "",
-      pinCode: "",
+      country: props?.selectedId ? fetchedId?.location?.country : "",
+      state: props?.selectedId ? fetchedId?.location?.state : "",
+      city: props?.selectedId ? fetchedId?.location?.city : "",
+      pinCode: props?.selectedId ? fetchedId?.location?.pincode : "",
     },
   };
+  console.log("receivedId", props?.selectedId);
 
   const validationSchema = Yup.object({
     hospitalName: Yup.string().required("Hospital Name is required"),
@@ -78,7 +86,7 @@ function CreateUpdateHospital() {
           console.log("Form submitted with values:", values);
           const idLength = findId();
           const payload: IHospitalPayload = {
-            id: idLength,
+            id: String(idLength),
             hospitalName: values?.hospitalName,
             registrationNo: Number(values?.registrationNo),
             location: {

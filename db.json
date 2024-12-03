@@ -9,7 +9,7 @@
   ],
   "hospitals": [
     {
-      "id": 1,
+      "id": "1",
       "hospitalName": "KMCH",
       "registrationNo": 123456,
       "location": {
@@ -19,13 +19,10 @@
         "state": "State 1",
         "country": "Country 1",
         "pincode": 10011
-      },
-      "users": {
-        "userId": 1
       }
     },
     {
-      "id": 2,
+      "id": "2",
       "hospitalName": "City Health Care",
       "registrationNo": 789101,
       "location": {
@@ -35,20 +32,17 @@
         "state": "State 2",
         "country": "Country 2",
         "pincode": 20022
-      },
-      "users": {
-        "userId": 1
       }
     },
     {
-      "id": 3,
-      "hospitalName": "Vivin",
-      "registrationNo": 123456,
+      "id": "3",
+      "hospitalName": "Josh",
+      "registrationNo": 2521412,
       "location": {
         "country": "IN",
         "state": "TN",
-        "city": "Coimbatore",
-        "pincode": 641016
+        "city": "Chennai",
+        "pincode": 123456
       }
     }
   ]

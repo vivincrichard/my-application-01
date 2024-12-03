@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "../../QueryKeys";
 import { Hospital, IHospitalPayload } from "../service/HospitalService";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export const fetchAllHospital = () => {
   const { data, isLoading, isError } = useQuery({
@@ -30,3 +31,22 @@ export const useCreateHospital = () => {
     },
   });
 };
+
+export const useFetchById = (id: number) => {
+  console.log('serviceId',id);
+  
+  const {data,refetch} = useQuery({
+    queryKey:[QueryKeys.GET_HOSPITAL_BY_ID],
+    queryFn: () => Hospital.fetchById(id)
+  })
+  useEffect(() => {
+    if (id) {
+      refetch();
+    }
+  }, [id]);
+
+  console.log('responseById',data);
+
+  return {data};
+  
+}

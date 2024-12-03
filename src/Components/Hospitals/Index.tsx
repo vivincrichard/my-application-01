@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Slider from "../HOD/Slider";
 import CreateUpdateHospital from "./CreateUpdateHospital";
 import { fetchAllHospital, useCreateHospital } from "./query/HospitalQuery";
 
 function HospitalIndex() {
+  const [selectedId,setSelectedId] = useState<any>();
   const {
     data: listHospital,
     isLoading: listLoading,
@@ -19,7 +21,7 @@ function HospitalIndex() {
         header="Create Hospital"
         id="hospitalCanvas"
         width="50"
-        sliderBody={<CreateUpdateHospital />}
+        sliderBody={<CreateUpdateHospital selectedId={selectedId} />}
       />
       <div className="container-fluid">
         <h1>Hospital</h1>
@@ -43,6 +45,7 @@ function HospitalIndex() {
               <th>State</th>
               <th>City</th>
               <th>PinCode</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -56,6 +59,20 @@ function HospitalIndex() {
                 <td>{hospital?.location?.state}</td>
                 <td>{hospital?.location?.city}</td>
                 <td>{hospital?.location?.pincode}</td>
+                <td>
+                  <button
+                    className="btn btn-light"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#hospitalCanvas"
+                    onClick={() => {
+                      console.log("editID", hospital?.id);
+                      setSelectedId(hospital?.id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button className="btn btn-primary">Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>

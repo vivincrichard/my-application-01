@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export interface IHospitalPayload {
-  id: number;
-  hospitalName: string;
+  id: String | any;
+  hospitalName: string | undefined;
   registrationNo: number;
   location?: ILocation;
 }
@@ -10,9 +10,9 @@ export interface IHospitalPayload {
 export interface ILocation {
   street?: string;
   area?: string;
-  city: string;
-  state: string;
-  country: string;
+  city: string | undefined;
+  state: string | undefined;
+  country: string | undefined;
   pincode?: number;
 }
 
@@ -31,4 +31,11 @@ export class Hospital {
     );
     return response.data;
   };
+
+  static fetchById = async (id:any) => {
+    const response = await axios.get<IHospitalPayload>(
+      `http://localhost:4000/hospitals/${id}`
+    );
+    return response.data;
+  }
 }
