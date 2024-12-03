@@ -10,7 +10,7 @@ export interface IHospitalPayload {
 export interface ILocation {
   street?: string;
   area?: string;
-  city: string | undefined;
+  city: string | undefined; // why added undefine ?
   state: string | undefined;
   country: string | undefined;
   pincode?: number;
