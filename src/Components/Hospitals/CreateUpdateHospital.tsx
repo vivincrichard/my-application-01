@@ -1,5 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { fetchAllHospital, useCreateHospital, useFetchById } from "./query/HospitalQuery";
+import {
+  fetchAllHospital,
+  useCreateHospital,
+  useFetchById,
+} from "./query/HospitalQuery";
 import { IHospitalPayload } from "./service/HospitalService";
 import * as Yup from "yup";
 import { useRef, useState, useEffect } from "react";
@@ -18,17 +22,19 @@ function CreateUpdateHospital(props: IProps) {
 
   const { mutateAsync: createHospital } = useCreateHospital();
   const { data: listHospital } = fetchAllHospital();
-  const {data: fetchedId} = useFetchById(props?.selectedId)
+  const {data: selectedHospital} = useFetchById(props?.selectedId)
 
+  console.log("selectedHospital", selectedHospital);
 
+  // Initial form data based on the selectedId (if available)
   const initialData = {
-    hospitalName: props?.selectedId ? fetchedId?.hospitalName : "",
-    registrationNo: props?.selectedId ? fetchedId?.registrationNo : "",
+    hospitalName: props?.selectedId ? selectedHospital?.hospitalName : "",
+    registrationNo: props?.selectedId ? selectedHospital?.registrationNo : "",
     location: {
-      country: props?.selectedId ? fetchedId?.location?.country : "",
-      state: props?.selectedId ? fetchedId?.location?.state : "",
-      city: props?.selectedId ? fetchedId?.location?.city : "",
-      pinCode: props?.selectedId ? fetchedId?.location?.pincode : "",
+      country: props?.selectedId ? selectedHospital?.location?.country : "",
+      state: props?.selectedId ? selectedHospital?.location?.state : "",
+      city: props?.selectedId ? selectedHospital?.location?.city : "",
+      pinCode: props?.selectedId ? selectedHospital?.location?.pincode : "",
     },
   };
 
@@ -54,23 +60,39 @@ function CreateUpdateHospital(props: IProps) {
 
   useEffect(() => {
     const countryList = Country.getAllCountries();
-    console.log("country", countryList);
-
     setCountries(countryList);
   }, []);
 
+  useEffect(() => {
+    // Fetch states and cities based on selectedId if available
+    if (props.selectedId && selectedHospital) {
+      const countryIso = selectedHospital.location?.country;
+      const stateIso = selectedHospital.location?.state;
+
+      console.log("stateIso", stateIso, "countryIso", countryIso);
+      
+
+      if (countryIso) {
+        const stateList = State.getStatesOfCountry(countryIso);
+        setStates(stateList);
+
+        // Set city list based on selected state
+        if (stateIso) {
+          const cityList = City.getCitiesOfState(countryIso, stateIso);
+          setCities(cityList);
+        }
+      }
+    }
+  }, [props.selectedId, selectedHospital]);
+
   const handleCountryChange = (isoCode: string) => {
     const stateList = State.getStatesOfCountry(isoCode);
-    console.log("state", stateList);
-
     setStates(stateList);
-    setCities([]);
+    setCities([]); // Reset cities when country changes
   };
 
   const handleStateChange = (isoCode: string) => {
     const cityList = City.getCitiesOfState(states[0]?.countryCode, isoCode);
-    console.log("city", cityList);
-
     setCities(cityList);
   };
 
@@ -82,7 +104,6 @@ function CreateUpdateHospital(props: IProps) {
         validationSchema={validationSchema}
         enableReinitialize={true}
         onSubmit={(values) => {
-          console.log("Form submitted with values:", values);
           const idLength = findId();
           const payload: IHospitalPayload = {
             id: String(idLength),
@@ -111,17 +132,12 @@ function CreateUpdateHospital(props: IProps) {
                 id="hospitalName"
                 className="form-control"
               />
-              {/* doubt */}
-              {/* in onecare we use this code :
-              <ErrorMessage name="country">
-                {(error) => <p className="text-danger">{error}</p>}
-              </ErrorMessage> */}
-              {/* instead of this code for ErrorMessage. why ?   */}
               <ErrorMessage
                 name="hospitalName"
                 component="div"
                 className="text-danger"
               />
+
               <label htmlFor="registrationNo" className="form-label">
                 Registration No
               </label>
@@ -136,6 +152,7 @@ function CreateUpdateHospital(props: IProps) {
                 component="div"
                 className="text-danger"
               />
+
               <label htmlFor="country">Country</label>
               <Field
                 as="select"
@@ -145,8 +162,8 @@ function CreateUpdateHospital(props: IProps) {
                 onChange={(e: any) => {
                   handleChange(e);
                   handleCountryChange(e.target.value);
-                  setFieldValue("location.state", ""); // doubt
-                  setFieldValue("location.city", ""); // doubt
+                  setFieldValue("location.state", ""); // Reset state
+                  setFieldValue("location.city", ""); // Reset city
                 }}
                 value={values.location.country}
               >
@@ -162,6 +179,7 @@ function CreateUpdateHospital(props: IProps) {
                 component="div"
                 className="text-danger"
               />
+
               <label htmlFor="state">State</label>
               <Field
                 as="select"
@@ -171,7 +189,7 @@ function CreateUpdateHospital(props: IProps) {
                 onChange={(e: any) => {
                   handleChange(e);
                   handleStateChange(e.target.value);
-                  setFieldValue("location.city", "");
+                  setFieldValue("location.city", ""); // Reset city
                 }}
                 value={values.location.state}
                 disabled={!states.length}
@@ -188,6 +206,7 @@ function CreateUpdateHospital(props: IProps) {
                 component="div"
                 className="text-danger"
               />
+
               <label htmlFor="city">City</label>
               <Field
                 as="select"
@@ -210,6 +229,7 @@ function CreateUpdateHospital(props: IProps) {
                 component="div"
                 className="text-danger"
               />
+
               <label htmlFor="pincode" className="form-label">
                 PinCode
               </label>
@@ -223,6 +243,7 @@ function CreateUpdateHospital(props: IProps) {
                 component="div"
                 className="text-danger"
               />
+
               <div className="d-flex justify-content-end mt-2 gap-2">
                 <button
                   className="btn btn-light"

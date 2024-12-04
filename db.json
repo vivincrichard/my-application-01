@@ -11,49 +11,23 @@
     {
       "id": "1",
       "hospitalName": "KMCH",
-      "registrationNo": 123456,
+      "registrationNo": 123,
       "location": {
-        "street": "Street 1",
-        "area": "Area 1",
-        "city": "City 1",
-        "state": "State 1",
-        "country": "Country 1",
-        "pincode": 10011
+        "country": "IN",
+        "state": "TN",
+        "city": "Coimbatore",
+        "pincode": 641015
       }
     },
     {
       "id": "2",
-      "hospitalName": "City Health Care",
-      "registrationNo": 789101,
+      "hospitalName": "Apollo",
+      "registrationNo": 5658,
       "location": {
-        "street": "Street 2",
-        "area": "Area 2",
-        "city": "City 2",
-        "state": "State 2",
-        "country": "Country 2",
-        "pincode": 20022
-      }
-    },
-    {
-      "id": "3",
-      "hospitalName": "Vivin",
-      "registrationNo": 52541,
-      "location": {
-        "country": "AF",
-        "state": "HEL",
-        "city": "Lashkar Gāh",
-        "pincode": 125455
-      }
-    },
-    {
-      "id": "4",
-      "hospitalName": "richard",
-      "registrationNo": 52541,
-      "location": {
-        "country": "AF",
-        "state": "HEL",
-        "city": "Lashkar Gāh",
-        "pincode": 125455
+        "country": "IN",
+        "state": "TN",
+        "city": "Chennai",
+        "pincode": 521400
       }
     }
   ]
