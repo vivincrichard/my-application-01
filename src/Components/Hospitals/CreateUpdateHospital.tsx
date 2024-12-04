@@ -51,10 +51,10 @@ function CreateUpdateHospital(props: IProps) {
     }),
   });
 
-  const findId = () => {
-    if (!listHospital || listHospital.length === 0) return 1;
+  const noOfHospital = () => {
+    if (!listHospital || listHospital.noOfHospital === 0) return 1;
     else {
-      return listHospital.length + 1;
+      return listHospital.noOfHospital + 1;
     }
   };
 
@@ -104,9 +104,9 @@ function CreateUpdateHospital(props: IProps) {
         validationSchema={validationSchema}
         enableReinitialize={true}
         onSubmit={(values) => {
-          const idLength = findId();
+          const length = noOfHospital();
           const payload: IHospitalPayload = {
-            id: String(idLength),
+            id: String(length),
             hospitalName: values?.hospitalName,
             registrationNo: Number(values?.registrationNo),
             location: {
@@ -195,7 +195,7 @@ function CreateUpdateHospital(props: IProps) {
                   setFieldValue("location.city", ""); // Reset city
                 }}
                 value={values.location.state}
-                disabled={!states.length}
+                disabled={!states.noOfHospital}
               >
                 <option value="">Select State</option>
                 {states.map((state) => (
@@ -218,7 +218,7 @@ function CreateUpdateHospital(props: IProps) {
                 className="form-select"
                 value={values.location.city}
                 onChange={handleChange}
-                disabled={!cities.length}
+                disabled={!cities.noOfHospital}
               >
                 <option value="">Select City</option>
                 {cities.map((city) => (
