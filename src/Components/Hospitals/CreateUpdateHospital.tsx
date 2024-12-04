@@ -31,7 +31,6 @@ function CreateUpdateHospital(props: IProps) {
       pinCode: props?.selectedId ? fetchedId?.location?.pincode : "",
     },
   };
-  console.log("receivedId", props?.selectedId);
 
   const validationSchema = Yup.object({
     hospitalName: Yup.string().required("Hospital Name is required"),

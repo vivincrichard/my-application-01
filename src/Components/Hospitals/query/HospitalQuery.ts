@@ -33,20 +33,29 @@ export const useCreateHospital = () => {
 };
 
 export const useFetchById = (id: number) => {
-  console.log('serviceId',id);
-  
-  const {data,refetch} = useQuery({
-    queryKey:[QueryKeys.GET_HOSPITAL_BY_ID],
-    queryFn: () => Hospital.fetchById(id)
-  })
+  const { data, refetch } = useQuery({
+    queryKey: [QueryKeys.GET_HOSPITAL_BY_ID],
+    queryFn: () => Hospital.fetchById(id),
+    enabled: false,
+  });
   useEffect(() => {
     if (id) {
       refetch();
     }
   }, [id]);
+  return { data };
+};
 
-  console.log('responseById',data);
-
-  return {data};
-  
-}
+export const UseDeleteHospitalById = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: [QueryKeys.DELETE_HOSPITAL_BY_ID],
+    mutationFn: (id: any) => Hospital.delete(id),
+    onSuccess: () => {
+      toast.dark("Delete Hospital By Id"),
+        queryClient.invalidateQueries({
+          queryKey: [QueryKeys.LIST_HOSPITAL],
+        });
+    },
+  });
+};

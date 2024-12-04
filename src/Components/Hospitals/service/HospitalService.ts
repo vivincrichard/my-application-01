@@ -10,7 +10,7 @@ export interface IHospitalPayload {
 export interface ILocation {
   street?: string;
   area?: string;
-  city: string | undefined; // why added undefine ?
+  city: string | undefined; // why added undefine
   state: string | undefined;
   country: string | undefined;
   pincode?: number;
@@ -32,10 +32,18 @@ export class Hospital {
     return response.data;
   };
 
-  static fetchById = async (id:any) => {
+  static fetchById = async (id: any) => {
     const response = await axios.get<IHospitalPayload>(
       `http://localhost:4000/hospitals/${id}`
     );
     return response.data;
-  }
+  };
+
+  static delete = async (id: any) => {
+    const response = await axios.delete(
+      `http://localhost:4000/hospitals/${id}`
+    );
+
+    return response.data;
+  };
 }

@@ -1,15 +1,21 @@
 import { useState } from "react";
 import Slider from "../HOD/Slider";
 import CreateUpdateHospital from "./CreateUpdateHospital";
-import { fetchAllHospital, useCreateHospital } from "./query/HospitalQuery";
+import {
+  fetchAllHospital,
+  useCreateHospital,
+  UseDeleteHospitalById,
+} from "./query/HospitalQuery";
 
 function HospitalIndex() {
-  const [selectedId,setSelectedId] = useState<any>();
+  const [selectedId, setSelectedId] = useState<any>();
   const {
     data: listHospital,
     isLoading: listLoading,
     isError: listError,
   } = fetchAllHospital();
+
+  const { mutate: deleteHospital } = UseDeleteHospitalById();
 
   const { mutateAsync: createHospital } = useCreateHospital();
 
@@ -71,7 +77,16 @@ function HospitalIndex() {
                   >
                     Edit
                   </button>
-                  <button className="btn btn-primary">Delete</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      console.log("delete", hospital?.id);
+                      deleteHospital(hospital?.id);
+                      setSelectedId("");
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

@@ -36,13 +36,24 @@
     },
     {
       "id": "3",
-      "hospitalName": "Josh",
-      "registrationNo": 2521412,
+      "hospitalName": "Vivin",
+      "registrationNo": 52541,
       "location": {
-        "country": "IN",
-        "state": "TN",
-        "city": "Chennai",
-        "pincode": 123456
+        "country": "AF",
+        "state": "HEL",
+        "city": "Lashkar Gāh",
+        "pincode": 125455
+      }
+    },
+    {
+      "id": "4",
+      "hospitalName": "richard",
+      "registrationNo": 52541,
+      "location": {
+        "country": "AF",
+        "state": "HEL",
+        "city": "Lashkar Gāh",
+        "pincode": 125455
       }
     }
   ]
