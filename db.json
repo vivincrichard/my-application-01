@@ -29,6 +29,17 @@
         "city": "Chennai",
         "pincode": 521400
       }
+    },
+    {
+      "id": "3",
+      "hospitalName": "KG",
+      "registrationNo": 5241,
+      "location": {
+        "country": "IN",
+        "state": "TN",
+        "city": "Tinnanur",
+        "pincode": 52252
+      }
     }
   ]
 }

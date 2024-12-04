@@ -118,6 +118,9 @@ function CreateUpdateHospital(props: IProps) {
           };
 
           createHospital(payload);
+          formikRef.current.resetForm();
+          setStates([]); 
+          setCities([]); 
         }}
       >
         {({ values, handleChange, setFieldValue }) => (
