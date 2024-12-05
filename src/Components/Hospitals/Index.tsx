@@ -9,6 +9,9 @@ import {
 
 function HospitalIndex() {
   const [selectedId, setSelectedId] = useState<any>();
+
+  console.log('logggggggg',selectedId);
+  
   const {
     data: listHospital,
     isLoading: listLoading,
@@ -24,7 +27,7 @@ function HospitalIndex() {
   return (
     <>
       <Slider
-        header="Create Hospital"
+        header={`${selectedId ? 'Update Hospital' : 'Create Hospital'}`}
         id="hospitalCanvas"
         width="50"
         sliderBody={<CreateUpdateHospital selectedId={selectedId} />}

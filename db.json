@@ -11,7 +11,7 @@
     {
       "id": "1",
       "hospitalName": "KMCH",
-      "registrationNo": 123,
+      "registrationNo": 12,
       "location": {
         "country": "IN",
         "state": "TN",
@@ -24,21 +24,21 @@
       "hospitalName": "Apollo",
       "registrationNo": 5658,
       "location": {
-        "country": "IN",
-        "state": "TN",
-        "city": "Chennai",
+        "country": "AU",
+        "state": "SA",
+        "city": "Enfield",
         "pincode": 521400
       }
     },
     {
       "id": "3",
-      "hospitalName": "KG",
+      "hospitalName": "KGF",
       "registrationNo": 5241,
       "location": {
         "country": "IN",
         "state": "TN",
         "city": "Tinnanur",
-        "pincode": 52252
+        "pincode": 100
       }
     }
   ]

@@ -46,6 +46,21 @@ export const useFetchById = (id: number) => {
   return { data };
 };
 
+export const useUpdateHospital = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: [QueryKeys.UPDATE_HOSPITAL],
+    mutationFn: ({ id, data }: { id: string; data: any }) =>
+      Hospital.update(id, data),
+    onSuccess: () => {
+      toast.dark("Hospital Updated Successfully");
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.LIST_HOSPITAL]
+      })
+    },
+  });
+};
+
 export const UseDeleteHospitalById = () => {
   const queryClient = useQueryClient();
   return useMutation({
