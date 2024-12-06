@@ -3,6 +3,7 @@ interface IProps {
   id?:string;
   header?:string;
   sliderBody?:any;
+  onClose?: (e: any) => void;
 }
 
 function Slider(props: IProps) {
@@ -21,6 +22,12 @@ function Slider(props: IProps) {
             className="btn-close text-reset position-absolute start-0"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            onClick={(e) => {
+              e.preventDefault();
+              if (props.onClose) {
+                props.onClose(false);
+              }
+            }}
           ></button>
           <h5
             id={`${props.id}Label`}

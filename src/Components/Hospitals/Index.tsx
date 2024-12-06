@@ -28,6 +28,9 @@ function HospitalIndex() {
         id="hospitalCanvas"
         width="50"
         sliderBody={<CreateUpdateHospital selectedId={selectedId} />}
+        // onClose={() => {
+        //   document.getElementById('hospital-formik').click;
+        // }}
       />
       <div className="container-fluid">
         <h1>Hospital</h1>

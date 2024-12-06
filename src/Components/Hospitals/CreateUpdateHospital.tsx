@@ -249,8 +249,10 @@ function CreateUpdateHospital(props: IProps) {
 
               <div className="d-flex justify-content-end mt-2 gap-2">
                 <button
+                  id="hospital-formik"
                   className="btn btn-light"
                   type="button"
+                  data-testid="reset-test"
                   onClick={() => {
                     formikRef.current.resetForm();
                     setStates([]);
