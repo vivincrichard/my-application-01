@@ -39,6 +39,14 @@ export class Hospital {
     return response.data;
   };
 
+  static update = async (id: string, payload: any) => {
+    const response = await axios.patch(
+      `http://localhost:4000/hospitals/${id}`,
+      payload
+    );
+    return response.data;
+  };
+
   static delete = async (id: any) => {
     const response = await axios.delete(
       `http://localhost:4000/hospitals/${id}`

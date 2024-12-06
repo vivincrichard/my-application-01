@@ -3,6 +3,7 @@ import {
   fetchAllHospital,
   useCreateHospital,
   useFetchById,
+  useUpdateHospital,
 } from "./query/HospitalQuery";
 import { IHospitalPayload } from "./service/HospitalService";
 import * as Yup from "yup";
@@ -22,7 +23,8 @@ function CreateUpdateHospital(props: IProps) {
 
   const { mutateAsync: createHospital } = useCreateHospital();
   const { data: listHospital } = fetchAllHospital();
-  const {data: selectedHospital} = useFetchById(props?.selectedId)
+  const { data: selectedHospital } = useFetchById(props?.selectedId);
+  const { mutateAsync: updateHospital } = useUpdateHospital();
 
   console.log("selectedHospital", selectedHospital);
 
@@ -37,6 +39,8 @@ function CreateUpdateHospital(props: IProps) {
       pinCode: props?.selectedId ? selectedHospital?.location?.pincode : "",
     },
   };
+
+  console.log("init", initialData);
 
   const validationSchema = Yup.object({
     hospitalName: Yup.string().required("Hospital Name is required"),
@@ -70,7 +74,6 @@ function CreateUpdateHospital(props: IProps) {
       const stateIso = selectedHospital.location?.state;
 
       console.log("stateIso", stateIso, "countryIso", countryIso);
-      
 
       if (countryIso) {
         const stateList = State.getStatesOfCountry(countryIso);
@@ -96,6 +99,8 @@ function CreateUpdateHospital(props: IProps) {
     setCities(cityList);
   };
 
+  console.log("tttt", typeof props?.selectedId);
+
   return (
     <>
       <Formik
@@ -105,7 +110,7 @@ function CreateUpdateHospital(props: IProps) {
         enableReinitialize={true}
         onSubmit={(values) => {
           const idLength = noOfHospital();
-          const payload: IHospitalPayload = {
+          const createPayload: IHospitalPayload = {
             id: String(idLength),
             hospitalName: values?.hospitalName,
             registrationNo: Number(values?.registrationNo),
@@ -117,10 +122,28 @@ function CreateUpdateHospital(props: IProps) {
             },
           };
 
-          createHospital(payload);
-          formikRef.current.resetForm();
-          setStates([]); 
-          setCities([]); 
+          const updatePayload = {
+            hospitalName: values?.hospitalName,
+            registrationNo: Number(values?.registrationNo),
+            location: {
+              country: values.location?.country,
+              state: values.location?.state,
+              city: values.location?.city,
+              pincode: Number(values.location?.pinCode),
+            },
+          };
+
+          if (props.selectedId) {
+            updateHospital({
+              id: String(props?.selectedId),
+              data: updatePayload,
+            });
+          } else {
+            createHospital(createPayload);
+            formikRef.current.resetForm();
+            setStates([]);
+            setCities([]);
+          }
         }}
       >
         {({ values, handleChange, setFieldValue }) => (
@@ -165,8 +188,8 @@ function CreateUpdateHospital(props: IProps) {
                 onChange={(e: any) => {
                   handleChange(e);
                   handleCountryChange(e.target.value);
-                  setFieldValue("location.state", ""); // Reset state
-                  setFieldValue("location.city", ""); // Reset city
+                  setFieldValue("location.state", ""); // Reset state while changing country
+                  setFieldValue("location.city", ""); // Reset city while changing country
                 }}
                 value={values.location.country}
               >
