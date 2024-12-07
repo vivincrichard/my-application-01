@@ -41,5 +41,19 @@
         "pincode": 100
       }
     }
+  ],
+  "doctors" : [
+    {
+      "id": "1",
+      "firstName" : "Vivin",
+      "lastName" : "Christopher",
+      "contact" : 9003360649,
+      "email" :"vivincrichard@gmail.com",
+      "qualification" : ["MBBS","MS"],
+      "specialization" : "Cardiologist",
+      "MRI" : 123456,
+      "stateMedicalCouncil" : "Chennai",
+      "registrationDate": "January 15, 2010"
+    }
   ]
 }

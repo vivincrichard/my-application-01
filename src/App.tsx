@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import ProfileDetails from "./Components/PDetails/ProfileDetails";
 import HospitalIndex from "./Components/Hospitals/Index";
+import Doctors from "./Components/Doctors";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/userDetails" element={<ProfileDetails />} />
         <Route path="/hospitals" element={<HospitalIndex />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/doctors" element={<Doctors/>} />
       </Routes>
     </Router>
   );
