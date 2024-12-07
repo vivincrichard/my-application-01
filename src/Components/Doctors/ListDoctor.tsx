@@ -1,8 +1,12 @@
+import { useDoctorList } from "./DoctorQuery";
 
 function ListDoctor() {
+  const { data: doctorList } = useDoctorList();
+
+  console.log("doc", doctorList);
+
   return (
     <>
-      <div>ListDoctor</div>
       <table className="table table-active">
         <thead>
           <tr>
@@ -14,13 +18,15 @@ function ListDoctor() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Vivin</td>
-            <td>Christopher</td>
-            <td>132465</td>
-            <td>.com</td>
-          </tr>
+          {doctorList?.map((doc: any) => (
+            <tr key={doc.id}>
+              <td>{doc.id}</td>
+              <td>{doc.firstName}</td>
+              <td>{doc.lastName}</td>
+              <td>{doc.contact}</td>
+              <td>{doc.email}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

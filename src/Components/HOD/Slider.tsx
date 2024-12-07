@@ -1,8 +1,8 @@
 interface IProps {
-  width?: string;
-  id?:string;
-  header?:string;
-  sliderBody?:any;
+  width: string;
+  id:string;
+  header:string;
+  sliderBody:any;
   onClose?: (e: any) => void;
 }
 
