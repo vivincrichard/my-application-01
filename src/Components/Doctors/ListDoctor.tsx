@@ -1,7 +1,22 @@
-import { useDoctorList } from "./DoctorQuery";
+import { useState } from "react";
+import { useDeleteDoctor, useDoctorList } from "./DoctorQuery";
 
-function ListDoctor() {
+interface IProps {
+  onSelectDoctor: (id: string) => void;
+}
+function ListDoctor(props: IProps) {
+  const [selectedId, setSelectedId] = useState<string>();
   const { data: doctorList } = useDoctorList();
+  const { mutateAsync: deleteDoctor } = useDeleteDoctor();
+
+  const handleSelectId = (id: string) => {
+    setSelectedId(id);
+    props.onSelectDoctor(id);
+  };
+
+  const handleDelete = (id: string) => {
+    deleteDoctor(id);
+  };
 
   console.log("doc", doctorList);
 
@@ -15,6 +30,7 @@ function ListDoctor() {
             <th>Last Name</th>
             <th>Contact</th>
             <th>Email</th>
+            <th>action</th>
           </tr>
         </thead>
         <tbody>
@@ -25,6 +41,22 @@ function ListDoctor() {
               <td>{doc.lastName}</td>
               <td>{doc.contact}</td>
               <td>{doc.email}</td>
+              <td>
+                <button
+                  className="btn btn-light"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#createUpdateDoctor"
+                  onClick={() => handleSelectId(doc.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleDelete(doc.id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

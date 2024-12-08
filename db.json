@@ -42,18 +42,57 @@
       }
     }
   ],
-  "doctors" : [
+  "doctors": [
     {
       "id": "1",
-      "firstName" : "Vivin",
-      "lastName" : "Christopher",
-      "contact" : 9003360649,
-      "email" :"vivincrichard@gmail.com",
-      "qualification" : ["MBBS","MS"],
-      "specialization" : "Cardiologist",
-      "MRI" : 123456,
-      "stateMedicalCouncil" : "Chennai",
+      "firstName": "Vivin",
+      "lastName": "Christopher",
+      "contact": 9003360649,
+      "email": "q@gmail.com",
+      "qualification": [
+        "MBBS",
+        "MS"
+      ],
+      "specialization": "Cardiologist",
+      "MRI": 123456,
+      "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
+    },
+    {
+      "id": "2",
+      "firstName": "Innocent",
+      "lastName": "Kevin",
+      "contact": "1232333333",
+      "email": "a@gmail.com"
+    },
+    {
+      "id": "3",
+      "firstName": "Vivin Richard",
+      "lastName": "Christopher",
+      "contact": 9003360649,
+      "email": "vivincrichard@gmail.com",
+      "qualification": [
+        "MBBS",
+        "MS"
+      ],
+      "specialization": "Cardiologist",
+      "MRI": 123456,
+      "stateMedicalCouncil": "Chennai",
+      "registrationDate": "January 15, 2010"
+    },
+    {
+      "id": "4",
+      "firstName": "Manoj",
+      "lastName": "M",
+      "contact": "9898564741",
+      "email": "manoj@gmail.com"
+    },
+    {
+      "id": "5",
+      "firstName": "h",
+      "lastName": "hk",
+      "contact": "32",
+      "email": "hl"
     }
   ]
 }

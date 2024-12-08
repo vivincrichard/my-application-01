@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "../QueryKeys";
 import { Doctor, IDoctors } from "./DoctorsService";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export const useDoctorList = () => {
   const { data } = useQuery({
@@ -13,10 +14,14 @@ export const useDoctorList = () => {
 };
 
 export const useDoctorId = (id: string) => {
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [QueryKeys.GET_DOCTOR_BY_ID],
     queryFn: () => Doctor.fetchId(id),
   });
+
+  useEffect(() => {
+    refetch();
+  }, [id]);
   return { data };
 };
 

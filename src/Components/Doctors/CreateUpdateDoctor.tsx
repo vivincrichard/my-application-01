@@ -1,17 +1,51 @@
 import { useForm } from "react-hook-form";
-import { useCreateDoctor, useDoctorList } from "./DoctorQuery";
+import {
+  useCreateDoctor,
+  useDoctorId,
+  useDoctorList,
+  useUpdateDoctor,
+} from "./DoctorQuery";
+import { useEffect } from "react";
 
-const CreateUpdateDoctor = () => {
+interface IProps {
+  selectedId: string;
+}
+const CreateUpdateDoctor = (props: IProps) => {
+  console.log("receivedId", props.selectedId);
 
-  const {mutateAsync: createDoctor} = useCreateDoctor();
-  const {data: list} = useDoctorList();
+  const { mutateAsync: createDoctor } = useCreateDoctor();
+  const { data: list } = useDoctorList();
+  const { data: getDoctor} = useDoctorId(
+    props?.selectedId
+  );
+  const { mutateAsync: updateDoctor } = useUpdateDoctor();
+
+  console.log("oneDoc", getDoctor);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      firstName: props?.selectedId ? getDoctor?.firstName : "",
+      lastName: props?.selectedId ? getDoctor?.lastName : "",
+      contact: props?.selectedId ? getDoctor?.contact : "",
+      email: props?.selectedId ? getDoctor?.email : "",
+    },
+  });
+  
+  useEffect(() => {
+    if (getDoctor) {
+      reset({
+        firstName: getDoctor.firstName,
+        lastName: getDoctor.lastName,
+        contact: getDoctor.contact,
+        email: getDoctor.email,
+      });
+    }
+  }, [getDoctor,reset]);
 
   const handleClear = () => {
     reset();
@@ -19,24 +53,27 @@ const CreateUpdateDoctor = () => {
 
   const findId = () => {
     const l = list?.length;
-    console.log('llllllll',Number(l) + 1);
-    
-    return Number(l) + 1;
-  }
+    console.log("llllllll", String(Number(l) + 1));
 
-  const onSubmit = (data: any) => {
+    return String(Number(l) + 1);
+  };
+
+  const onSubmit = (payload: any) => {
     const idLength = findId();
-    data = {...data,id:idLength }
-    console.log("data", data);
-    createDoctor(data);
-    reset();
+    payload = { ...payload, id: idLength };
+    console.log("payload", payload);
+    if (props?.selectedId) {
+      updateDoctor({ id: props?.selectedId, data: payload });
+    } else {
+      createDoctor(payload);
+      reset();
+    }
   };
 
   return (
     <div className="form-group">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          
           <div>
             <label htmlFor="firstName" className="form-label">
               First Name
@@ -85,7 +122,7 @@ const CreateUpdateDoctor = () => {
             <label htmlFor="email">Email</label>
             <input
               id="email"
-              type="text"
+              type="email"
               className="form-control"
               {...register("email", { required: "Email is required" })}
             />
@@ -102,7 +139,7 @@ const CreateUpdateDoctor = () => {
               Clear
             </button>
             <button type="submit" className="btn btn-primary">
-              Submit
+              {props?.selectedId ? "Update" : "Submit"}
             </button>
           </div>
         </div>
