@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDeleteDoctor, useDoctorList } from "./DoctorQuery";
+import { Link } from "react-router-dom";
 
 interface IProps {
   onSelectDoctor: (id: string) => void;
@@ -36,7 +37,9 @@ function ListDoctor(props: IProps) {
         <tbody>
           {doctorList?.map((doc: any) => (
             <tr key={doc.id}>
-              <td>{doc.id}</td>
+              <td>
+                <Link to={`/doctor/${doc.id}`}>{doc?.id}</Link>
+              </td>
               <td>{doc.firstName}</td>
               <td>{doc.lastName}</td>
               <td>{doc.contact}</td>
