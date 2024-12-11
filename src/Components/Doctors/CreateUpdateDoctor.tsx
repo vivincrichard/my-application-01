@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import {
   useCreateDoctor,
   useDoctorId,
   useDoctorList,
   useUpdateDoctor,
 } from "./DoctorQuery";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface IProps {
   selectedId: string;
@@ -24,6 +24,7 @@ const CreateUpdateDoctor = (props: IProps) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
     reset,
   } = useForm({
@@ -34,8 +35,13 @@ const CreateUpdateDoctor = (props: IProps) => {
       email: props?.selectedId ? getDoctor?.email : "",
       qualification: props?.selectedId
         ? getDoctor?.qualification || [""]
-        : [""], // Default to first qualification
+        : [""], // Default qualification for edit
     },
+  });
+
+  const { fields, append, remove } = useFieldArray<any>({
+    control,
+    name: "qualification", // The field name for qualification
   });
 
   useEffect(() => {
@@ -47,19 +53,8 @@ const CreateUpdateDoctor = (props: IProps) => {
         email: getDoctor.email,
         qualification: getDoctor.qualification || [""], // Fill qualification on edit
       });
-      setqualification(getDoctor.qualification || [""]); // Set initial qualification from fetched data
     }
   }, [getDoctor, reset]);
-
-  const [qualification, setqualification] = useState<string[]>(
-    props?.selectedId ? getDoctor?.qualification || [""] : [""]
-  );
-  console.log('len',qualification);
-  
-
-  const handleClear = () => {
-    reset();
-  };
 
   const findId = () => {
     const l = list?.length;
@@ -67,35 +62,15 @@ const CreateUpdateDoctor = (props: IProps) => {
     return String(Number(l) + 1);
   };
 
-  const addQualification = () => {
-    if (qualification[qualification.length - 1]) {
-       ([...qualification, ""]); // Add a new qualification only if the last one is filled
-    }
-  };
-
-  const handleQualificationChange = (index: number, value: string) => {
-    const updatedqualification = [...qualification];
-    updatedqualification[index] = value;
-    setqualification(updatedqualification);
-  };
-
-  const removeQualification = (index: number) => {
-    if (qualification.length > 1) {
-      const updatedqualification = qualification.filter((_, i) => i !== index);
-      setqualification(updatedqualification);
-    }
-  };
-
   const onSubmit = (payload: any) => {
     const idLength = findId();
-    payload = { ...payload, id: idLength, qualification }; // Include qualification in the payload
+    payload = { ...payload, id: idLength }; // No need to include qualification in payload, as it's managed by React Hook Form
     console.log("payload", payload);
     if (props?.selectedId) {
       updateDoctor({ id: props?.selectedId, data: payload });
     } else {
       createDoctor(payload);
       reset();
-      setqualification([""]); // Reset qualification after submit
     }
   };
 
@@ -166,35 +141,31 @@ const CreateUpdateDoctor = (props: IProps) => {
           {/* Dynamic qualification */}
           <div>
             <label htmlFor="qualification">qualification</label>
-            {qualification.map((qualification, index) => (
-              <div key={index} className="d-flex align-items-center mb-2">
+            {fields.map((item, index) => (
+              <div key={item.id} className="d-flex align-items-center mb-2">
                 <input
                   type="text"
-                  value={qualification}
-                  onChange={(e) =>
-                    handleQualificationChange(index, e.target.value)
-                  }
+                  {...register(`qualification.${index}`, {
+                    required: `Qualification ${index + 1} is required`,
+                  })}
                   className="form-control me-2"
                   placeholder={`Qualification ${index + 1}`}
-                  required
                 />
-                {/* Remove Button */}
-                {qualification.length > 1 && (
+                {fields.length > 1 && (
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => removeQualification(index)}
+                    onClick={() => remove(index)} // Remove qualification
                   >
                     Remove
                   </button>
                 )}
               </div>
             ))}
-            {/* Add Qualification Button */}
             <button
               type="button"
               className="btn btn-primary mt-2"
-              onClick={addQualification}
+              onClick={() => append("")} // Add a new qualification field
             >
               Add Qualification
             </button>
@@ -204,7 +175,7 @@ const CreateUpdateDoctor = (props: IProps) => {
           <div className="d-flex justify-content-end">
             <button
               type="button"
-              onClick={handleClear}
+              onClick={() => reset()}
               className="btn btn-light"
             >
               Clear
