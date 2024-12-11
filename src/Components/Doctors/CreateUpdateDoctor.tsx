@@ -5,7 +5,7 @@ import {
   useDoctorList,
   useUpdateDoctor,
 } from "./DoctorQuery";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IProps {
   selectedId: string;
@@ -13,7 +13,13 @@ interface IProps {
 
 const CreateUpdateDoctor = (props: IProps) => {
   console.log("receivedId", props.selectedId);
+  const [id, setId] = useState<string>();
 
+  useEffect(() => {
+    setId(props.selectedId);
+  }, [props.selectedId]);
+
+  console.log("iddddddddddd", id);
   const { mutateAsync: createDoctor } = useCreateDoctor();
   const { data: list } = useDoctorList();
   const { data: getDoctor } = useDoctorId(props?.selectedId);
@@ -34,24 +40,41 @@ const CreateUpdateDoctor = (props: IProps) => {
       contact: props?.selectedId ? getDoctor?.contact : "",
       email: props?.selectedId ? getDoctor?.email : "",
       qualification: props?.selectedId
-        ? getDoctor?.qualification || [""]
+        ? getDoctor?.qualification
         : [""], // Default qualification for edit
+      specialization: props?.selectedId
+        ? getDoctor?.specialization
+        : [""],
     },
   });
 
-  const { fields, append, remove } = useFieldArray<any>({
+  const {
+    fields: qualificationFields,
+    append: qualificationAppend,
+    remove: qualificationRemove,
+  } = useFieldArray<any>({
     control,
     name: "qualification", // The field name for qualification
+  });
+
+  const {
+    fields: specializationField,
+    append: specializationAppend,
+    remove: specializationRemove,
+  } = useFieldArray<any>({
+    control,
+    name: "specialization",
   });
 
   useEffect(() => {
     if (getDoctor) {
       reset({
-        firstName: getDoctor.firstName,
-        lastName: getDoctor.lastName,
-        contact: getDoctor.contact,
-        email: getDoctor.email,
+        firstName: getDoctor.firstName || "",
+        lastName: getDoctor.lastName || "",
+        contact: getDoctor.contact || "" ,
+        email: getDoctor.email || "",
         qualification: getDoctor.qualification || [""], // Fill qualification on edit
+        specialization: getDoctor.specialization || [""],
       });
     }
   }, [getDoctor, reset]);
@@ -71,6 +94,7 @@ const CreateUpdateDoctor = (props: IProps) => {
     } else {
       createDoctor(payload);
       reset();
+      setId("");
     }
   };
 
@@ -141,21 +165,19 @@ const CreateUpdateDoctor = (props: IProps) => {
           {/* Dynamic qualification */}
           <div>
             <label htmlFor="qualification">qualification</label>
-            {fields.map((item, index) => (
+            {qualificationFields.map((item, index) => (
               <div key={item.id} className="d-flex align-items-center mb-2">
                 <input
                   type="text"
-                  {...register(`qualification.${index}`, {
-                    required: `Qualification ${index + 1} is required`,
-                  })}
+                  {...register(`qualification.${index}`)}
                   className="form-control me-2"
                   placeholder={`Qualification ${index + 1}`}
                 />
-                {fields.length > 1 && (
+                {qualificationFields.length > 1 && (
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => remove(index)} // Remove qualification
+                    onClick={() => qualificationRemove(index)} // Remove qualification
                   >
                     Remove
                   </button>
@@ -165,9 +187,38 @@ const CreateUpdateDoctor = (props: IProps) => {
             <button
               type="button"
               className="btn btn-primary mt-2"
-              onClick={() => append("")} // Add a new qualification field
+              onClick={() => qualificationAppend("")} // Add a new qualification field
             >
               Add Qualification
+            </button>
+          </div>
+
+          <div>
+            <label htmlFor="specialization">Specialization</label>
+            {specializationField.map((special, index) => (
+              <div key={special.id} className="d-flex align-items-center mb-2">
+                <input
+                  type="text"
+                  {...register(`specialization.${index}`)}
+                  className="form-control"
+                />
+                {specializationField.length > 1 && (
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => specializationRemove(index)}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => specializationAppend("")}
+            >
+              Add Specialization
             </button>
           </div>
 

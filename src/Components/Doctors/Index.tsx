@@ -24,6 +24,9 @@ function Doctors() {
             className="btn btn-primary"
             data-bs-toggle="offcanvas"
             data-bs-target="#createUpdateDoctor"
+            onClick={() => {
+              setSelectedDoctorId('');
+            }}
           >
             New
           </button>

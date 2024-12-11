@@ -45,7 +45,7 @@
   "doctors": [
     {
       "id": "1",
-      "firstName": "Vivin",
+      "firstName": "Vivin C",
       "lastName": "Christopher",
       "contact": 9003360649,
       "email": "q@gmail.com",
@@ -53,63 +53,45 @@
         "MBBS",
         "MS"
       ],
-      "specialization": "Cardiologist",
+      "specialization": [
+        "cardiology",
+        "neurology"
+      ],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
     },
     {
       "id": "2",
-      "firstName": "Innocent",
-      "lastName": "Kevin",
-      "contact": "1232333333",
-      "email": "a@gmail.com",
-      "qualification": [
-        "MBBS",
-        "MS"
-      ]
-    },
-    {
-      "id": "3",
-      "firstName": "Vivin Richard",
-      "lastName": "Christopher",
+      "firstName": "Joshvin",
+      "lastName": "Kannayan",
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com",
       "qualification": [
-        "BE"
+        "BE",
+        "ME"
       ],
-      "specialization": "Cardiologist",
+      "specialization": [
+        "cardiology",
+        "Nero"
+      ],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
     },
     {
-      "id": "4",
+      "id": "3",
       "firstName": "Manoj",
       "lastName": "M",
-      "contact": "9898564741",
+      "contact": "123456789",
       "email": "manoj@gmail.com",
       "qualification": [
-        "MBBS",
-        "MS"
-      ]
-    },
-    {
-      "id": "5",
-      "firstName": "Josh",
-      "lastName": "S",
-      "contact": "3236363333",
-      "email": "josh@gmail.com"
-    },
-    {
-      "id": "6",
-      "firstName": "test",
-      "lastName": "one",
-      "contact": "9000",
-      "email": "asdf@gmail.com",
-      "qualification": [
-        "a",
-        "b"
+        "BSC",
+        "MBA"
+      ],
+      "specialization": [
+        "Manager",
+        "RBL"
       ]
     }
   ]
