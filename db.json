@@ -63,7 +63,11 @@
       "firstName": "Innocent",
       "lastName": "Kevin",
       "contact": "1232333333",
-      "email": "a@gmail.com"
+      "email": "a@gmail.com",
+      "qualification": [
+        "MBBS",
+        "MS"
+      ]
     },
     {
       "id": "3",
@@ -72,8 +76,7 @@
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com",
       "qualification": [
-        "MBBS",
-        "MS"
+        "BE"
       ],
       "specialization": "Cardiologist",
       "MRI": 123456,
@@ -85,7 +88,11 @@
       "firstName": "Manoj",
       "lastName": "M",
       "contact": "9898564741",
-      "email": "manoj@gmail.com"
+      "email": "manoj@gmail.com",
+      "qualification": [
+        "MBBS",
+        "MS"
+      ]
     },
     {
       "id": "5",
@@ -93,6 +100,17 @@
       "lastName": "S",
       "contact": "3236363333",
       "email": "josh@gmail.com"
+    },
+    {
+      "id": "6",
+      "firstName": "test",
+      "lastName": "one",
+      "contact": "9000",
+      "email": "asdf@gmail.com",
+      "qualification": [
+        "a",
+        "b"
+      ]
     }
   ]
 }
