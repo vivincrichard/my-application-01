@@ -8,6 +8,7 @@ import ProfileDetails from "./Components/PDetails/ProfileDetails";
 import HospitalIndex from "./Components/Hospitals/Index";
 import Doctors from "./Components/Doctors/Index";
 import DoctorDetails from "./Components/Doctors/DoctorDetails";
+import Staff from "./Components/Staff/Index";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/doctors" element={<Doctors/>} />
         <Route path="doctor/:id" element={<DoctorDetails/>}/>
+        <Route path="/staff" element={<Staff/>}/>
       </Routes>
     </Router>
   );

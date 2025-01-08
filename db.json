@@ -48,14 +48,9 @@
       "firstName": "Vivin C",
       "lastName": "Christopher",
       "contact": 9003360649,
-      "email": "q@gmail.com",
-      "qualification": [
-        "MBBS",
-        "MS"
-      ],
-      "specialization": [
-        "cardiology"
-      ],
+      "email": "AWS@gmail.com",
+      "qualification": ["MBBS", "MS"],
+      "specialization": ["cardiology"],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
@@ -66,14 +61,8 @@
       "lastName": "Kannayan",
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com",
-      "qualification": [
-        "BE",
-        "ME"
-      ],
-      "specialization": [
-        "cardiology",
-        "Nero"
-      ],
+      "qualification": ["BE", "ME"],
+      "specialization": ["cardiology", "Nero"],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
@@ -84,14 +73,68 @@
       "lastName": "M",
       "contact": "123456789",
       "email": "manoj@gmail.com",
-      "qualification": [
-        "BSC",
-        "MBA"
-      ],
-      "specialization": [
-        "Manager",
-        "RBL"
-      ]
+      "qualification": ["BSC", "MBA"],
+      "specialization": ["Manager", "RBL"]
+    }
+  ],
+  "nurse": [
+    {
+      "id": "1",
+      "name": "Sibin Sibi",
+      "age": 23
+    },
+    {
+      "id": "2",
+      "name": "Nelson",
+      "age": 22
+    },
+    {
+      "id": "3",
+      "name": "Koushik",
+      "age": 28
+    },
+    {
+      "id": "4",
+      "name": "Bula",
+      "age": 23
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "nurse"
+    },
+    {
+      "id": "2",
+      "name": "Anesthesiologists"
+    },
+    {
+      "id": "3",
+      "name": "Radiologists"
+    }
+  ],
+  "staff": [
+    {
+      "id": "1",
+      "name": "Sibin Sibi",
+      "age": 23,
+      "role":"nurse"
+    },
+    {
+      "id": "2",
+      "name": "Nelson",
+      "age": 22,
+      "role": "Radiologists"
+    },
+    {
+      "id": "3",
+      "name": "Koushik",
+      "age": 28
+    },
+    {
+      "id": "4",
+      "name": "Bula",
+      "age": 23
     }
   ]
 }
