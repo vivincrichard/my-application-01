@@ -12,9 +12,17 @@ export interface IStaff {
   role: string;
 }
 
-export class Staff {
-  static create = async (payload :IStaff) => {
-    const response = await axios.post<IStaff>(`http://localhost:4000/staff`,payload);
+export const genderOptions = [
+  { value: 1, label: "Male" },
+  { value: 2, label: "Female" },
+];
+
+export class StaffService {
+  static create = async (payload: IStaff) => {
+    const response = await axios.post<IStaff>(
+      `http://localhost:4000/staff`,
+      payload
+    );
     return response.data;
   };
 
