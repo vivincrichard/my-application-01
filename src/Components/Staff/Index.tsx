@@ -3,7 +3,7 @@ import { useRoles, useStaffList } from "./StaffQuery";
 import { genderOptions, IRoles } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
 
-type OptionType = { value: string | number; label: string };
+type OptionType = { value: string; label: string };
 
 function Staff() {
   const { data } = useStaffList();
@@ -55,6 +55,10 @@ function Staff() {
                   <Select
                     {...field}
                     options={genderOptions as OptionType[]}
+                    // Pass the value to the Select component to make the selected option show up
+                    value={genderOptions.find(
+                      (option) => option.value === field.value
+                    )}
                     // Override the onChange to just return the value
                     onChange={(selectedOption) =>
                       field.onChange(selectedOption?.value)
@@ -78,6 +82,7 @@ function Staff() {
               />
             </div>
           </div>
+
           <div>
             <button type="submit">Submit</button>
           </div>

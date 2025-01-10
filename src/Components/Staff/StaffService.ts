@@ -12,7 +12,6 @@ export interface IStaff {
   gender: string;
   role: string;
 }
-export type OptionType = { value: string; label: string };
 
 export const genderOptions = [
   { value: "male", label: "Male" },
