@@ -118,7 +118,8 @@
       "id": "1",
       "name": "Sibin Sibi",
       "age": 23,
-      "role":"nurse"
+      "gender": "Male",
+      "role": "nurse"
     },
     {
       "id": "2",

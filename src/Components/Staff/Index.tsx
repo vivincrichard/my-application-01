@@ -1,11 +1,21 @@
 import Select from "react-select";
-import { useStaffList } from "./StaffQuery";
-import { genderOptions } from "./staffService";
+import { useRoles, useStaffList } from "./StaffQuery";
+import { genderOptions, IRoles } from "./staffService";
+import { Controller, useForm } from "react-hook-form";
+type OptionType = { value: string | number; label: string };
 
 function Staff() {
   const { data } = useStaffList();
+  const { data: rolesData } = useRoles();
 
-  console.log("staff", data);
+  const { control, register } = useForm({
+    defaultValues: {
+      name: data?.name || "",
+      gender: data?.gender || "",
+    },
+  });
+
+  console.log("staff", data, rolesData);
 
   return (
     <>
@@ -22,7 +32,7 @@ function Staff() {
                   type="text"
                   className="form-control"
                   id="name"
-                  name="name"
+                  {...register("name")}
                 />
               </div>
             </div>
@@ -34,7 +44,16 @@ function Staff() {
                 Gender
               </label>
               <div className="col-sm-10">
-                <Select name="gender" options={genderOptions} />
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={genderOptions as OptionType[]}
+                    />
+                  )}
+                />
               </div>
             </div>
             <div className="form-group col-3 mb-2 row">
@@ -55,19 +74,17 @@ function Staff() {
                 Role
               </label>
               <div className="col-sm-10">
-                <Select name="role" aria-label="Role" />
-              </div>
-            </div>
-            <div className="form-group col-3 mb-2 row">
-              <label htmlFor="role" className="col-sm-2 col-form-label fw-bold">
-                Role
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="role"
+                <Select
                   name="role"
+                  aria-label="Role"
+                  options={
+                    rolesData
+                      ? rolesData.map((role: IRoles) => ({
+                          value: role.id,
+                          label: role.name,
+                        }))
+                      : []
+                  }
                 />
               </div>
             </div>

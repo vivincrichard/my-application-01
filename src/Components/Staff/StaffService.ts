@@ -9,13 +9,31 @@ export interface IStaff {
   id: string;
   name: string;
   age: number;
+  gender: string;
   role: string;
 }
+export type OptionType = { value: string | number; label: string };
 
 export const genderOptions = [
   { value: 1, label: "Male" },
   { value: 2, label: "Female" },
 ];
+
+export interface IRoles {
+  id: string;
+  name: string;
+}
+
+export class Roles {
+  static listRoles = async () => {
+    const response = await axios.get(`http://localhost:4000/roles`);
+    return response.data;
+  };
+  static createRoles = async (payload: IRoles) => {
+    const response = await axios.post(`http://localhost:4000/roles`, payload);
+    return response.data;
+  };
+}
 
 export class StaffService {
   static create = async (payload: IStaff) => {
