@@ -118,24 +118,27 @@
       "id": "1",
       "name": "Sibin Sibi",
       "age": 23,
-      "gender": "Male",
+      "gender": "male",
       "role": "nurse"
     },
     {
       "id": "2",
       "name": "Nelson",
       "age": 22,
+      "gender": "male",
       "role": "Radiologists"
     },
     {
       "id": "3",
       "name": "Koushik",
+      "gender": "male",
       "age": 28
     },
     {
       "id": "4",
       "name": "Bula",
-      "age": 23
+      "age": 23,
+      "gender": "female"
     }
   ]
 }

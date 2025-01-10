@@ -12,11 +12,11 @@ export interface IStaff {
   gender: string;
   role: string;
 }
-export type OptionType = { value: string | number; label: string };
+export type OptionType = { value: string; label: string };
 
 export const genderOptions = [
-  { value: 1, label: "Male" },
-  { value: 2, label: "Female" },
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
 ];
 
 export interface IRoles {
