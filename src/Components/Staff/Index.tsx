@@ -21,11 +21,11 @@ function Staff() {
 
   const listLength = () => {
     const l = data?.length;
-    return l;
+    return String(Number(l) + 1);
   };
 
   const onsubmit = (formData: any) => {
-    const idLength = String(listLength());
+    const idLength = listLength();
 
     const payload: IStaff = {
       id: idLength,
@@ -36,12 +36,14 @@ function Staff() {
     };
 
     createStaff(payload);
-
     console.log("submit", payload);
   };
 
-  console.log('rrr',rolesData);
-  
+  // Convert rolesData to the required format for react-select
+  const rolesOptions = rolesData?.map((role) => ({
+    value: role.id, // assuming 'id' is unique for each role
+    label: role.name, // assuming 'name' is the display name
+  }));
 
   return (
     <div className="m-3">
@@ -84,7 +86,7 @@ function Staff() {
                       {...field}
                       options={genderOptions as OptionType[]}
                       value={genderOptions.find(
-                        (option) => option.value === field.value
+                        (option) => option?.value === field.value
                       )}
                       onChange={(selectedOption) =>
                         field.onChange(selectedOption?.value)
@@ -121,19 +123,20 @@ function Staff() {
                   render={({ field }) => (
                     <Select
                       {...field}
-                      options={rolesData as IRoles[]}
-                      value={rolesData?.find(
-                        (option) => option?.name === field?.value
+                      options={rolesOptions}
+                      value={rolesOptions?.find(
+                        (option) => option.value === field?.value
                       )}
-                      onChange={(selectedOption) =>
-                        field.onChange(selectedOption?.name)
-                      }
+                      onChange={(selectedOption) => {
+                        field.onChange(selectedOption?.value);
+                      }}
                     />
                   )}
                 />
               </div>
             </div>
           </div>
+
           <div className="col-12 text-center mt-3">
             <button type="submit" className="btn btn-primary">
               Submit

@@ -1,16 +1,11 @@
 import axios from "axios";
 
-export interface roles {
-  id: string;
-  name: string;
-}
-
 export interface IStaff {
   id: string;
   name: string;
   age: number;
   gender: string;
-  role: string;
+  role: number;
 }
 
 export const genderOptions = [
@@ -19,7 +14,7 @@ export const genderOptions = [
 ];
 
 export interface IRoles {
-  id: string;
+  id: number;
   name: string;
 }
 
