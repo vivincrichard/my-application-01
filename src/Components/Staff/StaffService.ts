@@ -25,7 +25,7 @@ export interface IRoles {
 
 export class Roles {
   static listRoles = async () => {
-    const response = await axios.get(`http://localhost:4000/roles`);
+    const response = await axios.get<IRoles[]>(`http://localhost:4000/roles`);
     return response.data;
   };
   static createRoles = async (payload: IRoles) => {
@@ -35,16 +35,16 @@ export class Roles {
 }
 
 export class StaffService {
+  static fetchAll = async () => {
+    const response = await axios.get<IStaff[]>("http://localhost:4000/staff");
+    return response.data;
+  };
+
   static create = async (payload: IStaff) => {
     const response = await axios.post<IStaff>(
       `http://localhost:4000/staff`,
       payload
     );
-    return response.data;
-  };
-
-  static fetchAll = async () => {
-    const response = await axios.get<IStaff>("http://localhost:4000/staff");
     return response.data;
   };
 }
