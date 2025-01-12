@@ -25,6 +25,8 @@ function Staff() {
   };
 
   const onsubmit = (formData: any) => {
+    console.log('ssssss');
+    
     const idLength = listLength();
 
     const payload: IStaff = {
@@ -142,8 +144,7 @@ function Staff() {
             <div className="row">
               <label
                 htmlFor="role"
-                className="col-2 form-label d-flex justify-content-center fw-bold
-              m-0 p-0"
+                className="col-2 form-label d-flex justify-content-center fw-bold m-0 p-0"
               >
                 Role
               </label>
@@ -154,12 +155,20 @@ function Staff() {
                   render={({ field }) => (
                     <Select
                       {...field}
-                      options={rolesOptions}
-                      value={rolesOptions?.find(
-                        (option) => option.value === field?.value
-                      )}
+                      options={[
+                        { value: null, label: "Select a Role" }, // Placeholder option
+                        ...(rolesOptions || []), // Actual roles
+                      ]}
+                      value={
+                        rolesOptions?.find(
+                          (option) => option.value === field.value
+                        ) || {
+                          value: null,
+                          label: "Select a Role",
+                        } // Fallback to placeholder
+                      }
                       onChange={(selectedOption) => {
-                        field.onChange(selectedOption?.value);
+                        field.onChange(selectedOption?.value || null); // Handle null value
                       }}
                     />
                   )}

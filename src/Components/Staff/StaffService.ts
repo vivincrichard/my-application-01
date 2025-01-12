@@ -15,7 +15,7 @@ export const genderOptions = [
 ];
 
 export interface IRoles {
-  id: number;
+  id: number | null;
   name: string;
 }
 
