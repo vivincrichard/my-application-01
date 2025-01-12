@@ -100,10 +100,13 @@ function Staff() {
 
           <div className="form-group col-12 col-sm-6 col-md-2">
             <div className="row">
-              <label htmlFor="age" className="col-sm-2 col-form-label fw-bold">
+              <label
+                htmlFor="age"
+                className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
+              >
                 Age
               </label>
-              <div className="col-sm-10">
+              <div className="col-8 m-0 p-0">
                 <input
                   type="number"
                   className="form-control"
@@ -113,10 +116,16 @@ function Staff() {
               </div>
             </div>
           </div>
-          <div>
-            <div>
-              <label htmlFor="role">Role</label>
-              <div>
+          <div className="form-group col-12 col-sm-6 col-md-4">
+            <div className="row">
+              <label
+                htmlFor="role"
+                className="col-2 form-label d-flex justify-content-center fw-bold
+              m-0 p-0"
+              >
+                Role
+              </label>
+              <div className="col-10 m-0 p-0">
                 <Controller
                   name="role"
                   control={control}

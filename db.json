@@ -49,8 +49,13 @@
       "lastName": "Christopher",
       "contact": 9003360649,
       "email": "AWS@gmail.com",
-      "qualification": ["MBBS", "MS"],
-      "specialization": ["cardiology"],
+      "qualification": [
+        "MBBS",
+        "MS"
+      ],
+      "specialization": [
+        "cardiology"
+      ],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
@@ -61,8 +66,14 @@
       "lastName": "Kannayan",
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com",
-      "qualification": ["BE", "ME"],
-      "specialization": ["cardiology", "Nero"],
+      "qualification": [
+        "BE",
+        "ME"
+      ],
+      "specialization": [
+        "cardiology",
+        "Nero"
+      ],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
       "registrationDate": "January 15, 2010"
@@ -73,8 +84,14 @@
       "lastName": "M",
       "contact": "123456789",
       "email": "manoj@gmail.com",
-      "qualification": ["BSC", "MBA"],
-      "specialization": ["Manager", "RBL"]
+      "qualification": [
+        "BSC",
+        "MBA"
+      ],
+      "specialization": [
+        "Manager",
+        "RBL"
+      ]
     }
   ],
   "nurse": [
@@ -124,6 +141,13 @@
       "age": "",
       "gender": "",
       "role": "3"
+    },
+    {
+      "id": "2",
+      "name": "zoro",
+      "age": "29",
+      "gender": "male",
+      "role": "2"
     }
   ]
 }
