@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "../QueryKeys";
-import { IStaff, Roles, StaffService } from "./staffService";
+import { Departments, IStaff, StaffService } from "./staffService";
 
 export const useStaffList = () => {
   const { data, isLoading, isFetching } = useQuery({
@@ -23,10 +23,10 @@ export const useStaffCreate = () => {
   });
 };
 
-export const useRoles = () => {
+export const useDepartments = () => {
   const { data } = useQuery({
-    queryKey: [QueryKeys.LIST_ROLES],
-    queryFn: () => Roles.listRoles(),
+    queryKey: [QueryKeys.LIST_DEPARTMENTS],
+    queryFn: () => Departments.listDepartments(),
   });
   return { data };
 };

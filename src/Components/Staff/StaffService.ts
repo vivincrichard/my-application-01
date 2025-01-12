@@ -14,18 +14,18 @@ export const genderOptions = [
   { value: "female", label: "Female" },
 ];
 
-export interface IRoles {
+export interface IDepartments {
   id: number | null;
   name: string;
 }
 
-export class Roles {
-  static listRoles = async () => {
-    const response = await axios.get<IRoles[]>(`http://localhost:4000/roles`);
+export class Departments {
+  static listDepartments = async () => {
+    const response = await axios.get<IDepartments[]>(`http://localhost:4000/departments`);
     return response.data;
   };
-  static createRoles = async (payload: IRoles) => {
-    const response = await axios.post(`http://localhost:4000/roles`, payload);
+  static createDepartment = async (payload: IDepartments) => {
+    const response = await axios.post(`http://localhost:4000/departments`, payload);
     return response.data;
   };
 }

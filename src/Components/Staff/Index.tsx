@@ -1,6 +1,6 @@
 import Select from "react-select";
-import { useRoles, useStaffCreate, useStaffList } from "./StaffQuery";
-import { genderOptions, IRoles, IStaff } from "./staffService";
+import { useDepartments, useStaffCreate, useStaffList } from "./StaffQuery";
+import { genderOptions, IStaff } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
 
 type OptionType = { value: string | any; label: string };
@@ -8,7 +8,7 @@ type OptionType = { value: string | any; label: string };
 function Staff() {
   const { data } = useStaffList();
   const { mutateAsync: createStaff } = useStaffCreate();
-  const { data: rolesData } = useRoles();
+  const { data: departmentData } = useDepartments();
 
   const { register, handleSubmit, control, reset, watch } = useForm({
     defaultValues: {
@@ -50,8 +50,8 @@ function Staff() {
     console.log("submit", payload);
   };
 
-  // Convert rolesData to the required format for react-select
-  const rolesOptions = rolesData?.map((role) => ({
+  // Convert departmentData to the required format for react-select
+  const departmentOptions = departmentData?.map((role) => ({
     value: role.id, // assuming 'id' is unique for each role
     label: role.name, // assuming 'name' is the display name
   }));
@@ -159,10 +159,10 @@ function Staff() {
                       {...field}
                       options={[
                         { value: null, label: "Select a Role" }, // Placeholder option
-                        ...(rolesOptions || []), // Actual roles
+                        ...(departmentOptions || []), // Actual departments
                       ]}
                       value={
-                        rolesOptions?.find(
+                        departmentOptions?.find(
                           (option) => option.value === field.value
                         ) || {
                           value: null,
