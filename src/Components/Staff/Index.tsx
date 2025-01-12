@@ -10,7 +10,7 @@ function Staff() {
   const { mutateAsync: createStaff } = useStaffCreate();
   const { data: rolesData } = useRoles();
 
-  const { control, register, handleSubmit } = useForm({
+  const { register, handleSubmit, control, reset } = useForm({
     defaultValues: {
       name: "",
       gender: "",
@@ -48,6 +48,18 @@ function Staff() {
   return (
     <div className="m-3">
       <h5>Create Staff</h5>
+      <div className="text-end mb-1">
+        <button
+          type="button"
+          className="btn btn-outline-light text-dark mx-1"
+          onClick={() => reset()}
+        >
+          Clear
+        </button>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </div>
       <form onSubmit={handleSubmit(onsubmit)}>
         <div className="row">
           <div className="form-group col-12 col-sm-6 col-md-3">
@@ -144,12 +156,6 @@ function Staff() {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="col-12 text-center mt-3">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
           </div>
         </div>
       </form>
