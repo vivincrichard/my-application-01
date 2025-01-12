@@ -10,7 +10,7 @@ function Staff() {
   const { mutateAsync: createStaff } = useStaffCreate();
   const { data: rolesData } = useRoles();
 
-  const { register, handleSubmit, control, reset } = useForm({
+  const { register, handleSubmit, control, reset, watch } = useForm({
     defaultValues: {
       name: "",
       gender: "",
@@ -44,6 +44,9 @@ function Staff() {
     value: role.id, // assuming 'id' is unique for each role
     label: role.name, // assuming 'name' is the display name
   }));
+
+  const values = watch();
+  console.log("values", values);
 
   return (
     <div className="m-3">
