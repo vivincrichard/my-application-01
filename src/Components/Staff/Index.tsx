@@ -53,26 +53,26 @@ function Staff() {
   return (
     <div className="m-3">
       <h5>Create Staff</h5>
-      <div className="text-end mb-1">
-        <button
-          type="button"
-          className="btn btn-outline-light text-dark mx-1"
-          onClick={() =>
-            reset({
-              name: null,
-              gender: null,
-              age: null,
-              role: null,
-            })
-          }
-        >
-          Clear
-        </button>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </div>
       <form onSubmit={handleSubmit(onsubmit)}>
+        <div className="text-end mb-1">
+          <button
+            type="button"
+            className="btn btn-outline-light text-dark mx-1"
+            onClick={() =>
+              reset({
+                name: null,
+                gender: null,
+                age: null,
+                role: null,
+              })
+            }
+          >
+            Clear
+          </button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
         <div className="row">
           <div className="form-group col-12 col-sm-6 col-md-3">
             <div className="row">
