@@ -19,14 +19,22 @@ function Staff() {
     },
   });
 
+  const clearValues = () =>
+    reset({
+      name: null,
+      gender: null,
+      age: null,
+      role: null,
+    });
+
   const listLength = () => {
     const l = data?.length;
     return String(Number(l) + 1);
   };
 
   const onsubmit = (formData: any) => {
-    console.log('ssssss');
-    
+    console.log("ssssss");
+
     const idLength = listLength();
 
     const payload: IStaff = {
@@ -38,6 +46,7 @@ function Staff() {
     };
 
     createStaff(payload);
+    clearValues();
     console.log("submit", payload);
   };
 
@@ -58,14 +67,7 @@ function Staff() {
           <button
             type="button"
             className="btn btn-outline-light text-dark mx-1"
-            onClick={() =>
-              reset({
-                name: null,
-                gender: null,
-                age: null,
-                role: null,
-              })
-            }
+            onClick={clearValues}
           >
             Clear
           </button>
