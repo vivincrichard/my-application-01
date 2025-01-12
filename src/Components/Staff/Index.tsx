@@ -3,7 +3,7 @@ import { useRoles, useStaffCreate, useStaffList } from "./StaffQuery";
 import { genderOptions, IRoles, IStaff } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
 
-type OptionType = { value: string; label: string };
+type OptionType = { value: string | any; label: string };
 
 function Staff() {
   const { data } = useStaffList();
@@ -12,10 +12,10 @@ function Staff() {
 
   const { register, handleSubmit, control, reset, watch } = useForm({
     defaultValues: {
-      name: "",
-      gender: "",
-      age: undefined,
-      role: undefined,
+      name: null,
+      gender: null,
+      age: null,
+      role: null,
     },
   });
 
@@ -46,7 +46,7 @@ function Staff() {
   }));
 
   const values = watch();
-  console.log("values", values);
+  console.log("Current Form Values:", values);
 
   return (
     <div className="m-3">
@@ -55,7 +55,14 @@ function Staff() {
         <button
           type="button"
           className="btn btn-outline-light text-dark mx-1"
-          onClick={() => reset()}
+          onClick={() =>
+            reset({
+              name: null,
+              gender: null,
+              age: null,
+              role: null,
+            })
+          }
         >
           Clear
         </button>

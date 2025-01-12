@@ -9,6 +9,7 @@ export interface IStaff {
 }
 
 export const genderOptions = [
+  { value: null, label: "Select" },
   { value: "male", label: "Male" },
   { value: "female", label: "Female" },
 ];
