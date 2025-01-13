@@ -10,7 +10,7 @@ function Staff() {
   const { mutateAsync: createStaff } = useStaffCreate();
   const { data: departmentData } = useDepartments();
 
-  const { register, handleSubmit, control, reset, watch } = useForm({
+  const { register, handleSubmit, control, reset, watch, formState:{errors}} = useForm({
     defaultValues: {
       name: null,
       gender: null,
@@ -66,7 +66,7 @@ function Staff() {
   }));
 
   const values = watch();
-  console.log("Current Form Values:", values);
+  console.log("Current Form Values:", values,errors?.name);
 
   return (
     <div className="m-3">
@@ -98,7 +98,7 @@ function Staff() {
                   type="text"
                   className="form-control"
                   id="name"
-                  {...register("name")}
+                  {...register("name", { required: "Required" })}
                 />
               </div>
             </div>
