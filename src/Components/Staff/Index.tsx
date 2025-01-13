@@ -18,6 +18,7 @@ function Staff() {
       role: null,
       phoneNumber: null,
       email: null,
+      workType: null,
       shiftTime: null,
     },
   });
@@ -30,6 +31,7 @@ function Staff() {
       role: null,
       phoneNumber: null,
       email: null,
+      workType: null,
       shiftTime: null,
     });
 
@@ -51,7 +53,8 @@ function Staff() {
       role: formData?.role,
       phoneNumber: formData?.phoneNumber,
       email: formData?.email,
-      shiftTime: Number(formData?.shiftTime),
+      workType: Number(formData?.workType ? formData?.workType : undefined),
+      shiftTime: Number(formData?.shiftTime ? formData?.shiftTime : undefined),
     };
 
     createStaff(payload);
@@ -224,10 +227,10 @@ function Staff() {
           </div>
           <div className="form-group d-flex col-12 col-sm-6 col-md-3 mt-1 p-0">
             <label
-              htmlFor="shiftTime"
+              htmlFor="workType"
               className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
             >
-              Shift-Time
+              Work-Type
             </label>
             <div className="d-flex flex-column">
               <div className="form-check">
@@ -236,7 +239,7 @@ function Staff() {
                   type="radio"
                   value={1} // Numeric value
                   className="form-check-input"
-                  {...register("shiftTime")} // Ensures value is a number
+                  {...register("workType")} // Ensures value is a number
                 />
                 <label htmlFor="day_shift" className="form-check-label">
                   Day Shift
@@ -248,13 +251,21 @@ function Staff() {
                   type="radio"
                   value={2} // Numeric value
                   className="form-check-input"
-                  {...register("shiftTime")} // Ensures value is a number
+                  {...register("workType")} // Ensures value is a number
                 />
                 <label htmlFor="night_shift" className="form-check-label">
                   Night Shift
                 </label>
               </div>
             </div>
+          </div>
+          <div className="form-group d-flex col-12 col-sm-6 col-md-3 mt-1 p-0">
+            <label
+              htmlFor="shiftTime"
+              className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
+            >
+              Shift-Time
+            </label>
           </div>
         </div>
       </form>
