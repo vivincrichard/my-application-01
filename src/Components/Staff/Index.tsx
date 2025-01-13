@@ -18,8 +18,7 @@ function Staff() {
       role: null,
       phoneNumber: null,
       email: null,
-      workType: null,
-      shiftTime: null,
+      shift: null,
     },
   });
 
@@ -31,8 +30,7 @@ function Staff() {
       role: null,
       phoneNumber: null,
       email: null,
-      workType: null,
-      shiftTime: null,
+      shift: null,
     });
 
   const listLength = () => {
@@ -53,13 +51,12 @@ function Staff() {
       role: formData?.role,
       phoneNumber: formData?.phoneNumber,
       email: formData?.email,
-      workType: Number(formData?.workType ? formData?.workType : undefined),
-      shiftTime: Number(formData?.shiftTime ? formData?.shiftTime : undefined),
+      shift: Number(formData?.shift ? formData?.shift : undefined),
     };
 
     createStaff(payload);
     clearValues();
-    console.log("submit", typeof payload?.shiftTime);
+    console.log("submit", payload);
   };
 
   // Convert departmentData to the required format for react-select
@@ -69,7 +66,7 @@ function Staff() {
   }));
 
   const values = watch();
-  console.log("Current Form Values:", typeof values?.shiftTime);
+  console.log("Current Form Values:", values);
 
   return (
     <div className="m-3">
@@ -227,19 +224,19 @@ function Staff() {
           </div>
           <div className="form-group d-flex col-12 col-sm-6 col-md-3 mt-1 p-0">
             <label
-              htmlFor="workType"
+              htmlFor="shift"
               className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
             >
-              Work-Type
+              Shift
             </label>
-            <div className="d-flex flex-column">
+            <div className="d-flex col-8 gap-3">
               <div className="form-check">
                 <input
                   id="day_shift"
                   type="radio"
                   value={1} // Numeric value
                   className="form-check-input"
-                  {...register("workType")} // Ensures value is a number
+                  {...register("shift")} // Ensures value is a number
                 />
                 <label htmlFor="day_shift" className="form-check-label">
                   Day Shift
@@ -251,21 +248,13 @@ function Staff() {
                   type="radio"
                   value={2} // Numeric value
                   className="form-check-input"
-                  {...register("workType")} // Ensures value is a number
+                  {...register("shift")} // Ensures value is a number
                 />
                 <label htmlFor="night_shift" className="form-check-label">
                   Night Shift
                 </label>
               </div>
             </div>
-          </div>
-          <div className="form-group d-flex col-12 col-sm-6 col-md-3 mt-1 p-0">
-            <label
-              htmlFor="shiftTime"
-              className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
-            >
-              Shift-Time
-            </label>
           </div>
         </div>
       </form>
