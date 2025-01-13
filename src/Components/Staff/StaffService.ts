@@ -6,6 +6,8 @@ export interface IStaff {
   age: number;
   gender: string;
   role: number;
+  phoneNumber: number;
+  email:string;
 }
 
 export const genderOptions = [

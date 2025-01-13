@@ -16,6 +16,8 @@ function Staff() {
       gender: null,
       age: null,
       role: null,
+      phoneNumber: null,
+      email: null,
     },
   });
 
@@ -25,6 +27,8 @@ function Staff() {
       gender: null,
       age: null,
       role: null,
+      phoneNumber: null,
+      email: null,
     });
 
   const listLength = () => {
@@ -43,6 +47,8 @@ function Staff() {
       age: formData?.age,
       gender: formData?.gender,
       role: formData?.role,
+      phoneNumber: formData?.phoneNumber,
+      email: formData?.email,
     };
 
     createStaff(payload);
@@ -123,8 +129,7 @@ function Staff() {
               </div>
             </div>
           </div>
-
-          <div className="form-group col-12 col-sm-6 col-md-2">
+          <div className="form-group col-12 col-sm-6 col-md-3">
             <div className="row">
               <label
                 htmlFor="age"
@@ -142,15 +147,51 @@ function Staff() {
               </div>
             </div>
           </div>
-          <div className="form-group col-12 col-sm-6 col-md-4">
+          <div className="form-group col-12 col-sm-6 col-md-3">
+            <div className="row">
+              <label
+                htmlFor="phoneNumber"
+                className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
+              >
+                Phone Number
+              </label>
+              <div className="col-8 m-0 p-0">
+                <input
+                  type="number"
+                  id="phoneNumber"
+                  className="form-control"
+                  {...register("phoneNumber")}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="form-group col-12 col-sm-6 col-md-3 mt-1">
+            <div className="row">
+              <label
+                htmlFor="email"
+                className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
+              >
+                Email
+              </label>
+              <div className="col-8 m-0 p-0">
+                <input
+                  type="email"
+                  id="email"
+                  className="form-control"
+                  {...register("email")}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="form-group col-12 col-sm-6 col-md-3 mt-1">
             <div className="row">
               <label
                 htmlFor="role"
-                className="col-2 form-label d-flex justify-content-center fw-bold m-0 p-0"
+                className="col-4 form-label d-flex justify-content-center fw-bold m-0 p-0"
               >
                 Role
               </label>
-              <div className="col-10 m-0 p-0">
+              <div className="col-8 m-0 p-0">
                 <Controller
                   name="role"
                   control={control}
