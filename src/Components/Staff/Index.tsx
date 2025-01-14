@@ -6,11 +6,18 @@ import { Controller, useForm } from "react-hook-form";
 type OptionType = { value: string | any; label: string };
 
 function Staff() {
-  const { data } = useStaffList();
+  const { data: staffList } = useStaffList();
   const { mutateAsync: createStaff } = useStaffCreate();
   const { data: departmentData } = useDepartments();
 
-  const { register, handleSubmit, control, reset, watch, formState:{errors}} = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       name: null,
       gender: null,
@@ -34,7 +41,7 @@ function Staff() {
     });
 
   const listLength = () => {
-    const l = data?.length;
+    const l = staffList?.length;
     return String(Number(l) + 1);
   };
 
@@ -66,7 +73,7 @@ function Staff() {
   }));
 
   const values = watch();
-  console.log("Current Form Values:", values,errors?.name);
+  console.log("Current Form Values:", staffList);
 
   return (
     <div className="m-3">
@@ -258,6 +265,39 @@ function Staff() {
           </div>
         </div>
       </form>
+
+      <table className="table table-active">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>E-Mail</th>
+            <th>Role</th>
+            <th>Shift</th>
+          </tr>
+        </thead>
+        <tbody>
+          {staffList?.length === 0 ? (
+            <td>No Data Found</td>
+          ) : (
+            staffList?.map((staff: IStaff) => (
+              <tr key={staff?.id}>
+                <td>{staff?.id}</td>
+                <td>{staff?.name}</td>
+                <td>{staff?.gender}</td>
+                <td>{staff?.age}</td>
+                <td>{staff?.phoneNumber}</td>
+                <td>{staff?.email}</td>
+                <td>{staff?.role}</td>
+                <td>{staff?.shift}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
