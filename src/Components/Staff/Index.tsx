@@ -2,6 +2,7 @@ import Select from "react-select";
 import { useDepartments, useStaffCreate, useStaffList } from "./StaffQuery";
 import { genderOptions, IStaff } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
+import { capitalFirstLetters } from "../Utils";
 
 type OptionType = { value: string | any; label: string };
 
@@ -286,8 +287,8 @@ function Staff() {
             staffList?.map((staff: IStaff) => (
               <tr key={staff?.id}>
                 <td>{staff?.id}</td>
-                <td>{staff?.name}</td>
-                <td>{staff?.gender}</td>
+                <td>{capitalFirstLetters(staff?.name)}</td>
+                <td>{capitalFirstLetters(staff?.gender)}</td>
                 <td>{staff?.age}</td>
                 <td>{staff?.phoneNumber}</td>
                 <td>{staff?.email}</td>
@@ -298,6 +299,10 @@ function Staff() {
           )}
         </tbody>
       </table>
+
+      <div>
+        <p>{capitalFirstLetters('vivin richard')}</p>
+      </div>
     </div>
   );
 }
