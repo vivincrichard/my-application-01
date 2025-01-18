@@ -3,6 +3,7 @@ import { useDepartments, useStaffCreate, useStaffList } from "./StaffQuery";
 import { genderOptions, IStaff } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
 import { capitalFirstLetters } from "../Utils";
+import { useState } from "react";
 
 type OptionType = { value: string | any; label: string };
 
@@ -73,8 +74,34 @@ function Staff() {
     label: role.name, // assuming 'name' is the display name
   }));
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filter staff based on search term
+  const filteredStaffList = staffList?.filter((staff) => {
+    const name = staff?.name?.toLowerCase() ||undefined;
+    const gender = staff?.gender?.toLowerCase() ||undefined;
+    const phoneNumber = staff?.phoneNumber?.toString().toLowerCase() ||undefined;
+    const email = staff?.email?.toLowerCase() ||undefined;
+    const role = staff?.role?.toString().toLowerCase() ||undefined;
+    const shift = staff?.shift?.toString().toLowerCase() ||undefined;
+
+    console.log('mm',name,gender,phoneNumber,email,role,shift);
+    
+
+    // Check if any of the fields include the search term (case insensitive)
+    return (
+      name?.includes(searchTerm.toLowerCase()) ||
+      gender?.includes(searchTerm.toLowerCase()) ||
+      phoneNumber?.includes(searchTerm.toLowerCase()) ||
+      email?.includes(searchTerm.toLowerCase()) ||
+      role?.includes(searchTerm.toLowerCase()) ||
+      shift?.includes(searchTerm.toLowerCase())
+    );
+  });
+
+  // watch is act the onChange, we can get the onchange value with 'watch'
   const values = watch();
-  console.log("Current Form Values:", staffList);
+  console.log("Current Form Values:", values,filteredStaffList);
 
   return (
     <div className="m-3">
@@ -267,7 +294,49 @@ function Staff() {
         </div>
       </form>
 
+      <input
+        type="text"
+        className="form-control mb-3"
+        placeholder="Search staff..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <table className="table table-active">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>E-Mail</th>
+            <th>Role</th>
+            <th>Shift</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredStaffList?.length === 0 ? (
+            <tr>
+              <td colSpan={8}>No Data Found</td>
+            </tr>
+          ) : (
+            filteredStaffList?.map((staff: IStaff) => (
+              <tr key={staff?.id}>
+                <td>{staff?.id}</td>
+                <td>{capitalFirstLetters(staff?.name)}</td>
+                <td>{capitalFirstLetters(staff?.gender)}</td>
+                <td>{staff?.age}</td>
+                <td>{staff?.phoneNumber}</td>
+                <td>{staff?.email}</td>
+                <td>{staff?.role}</td>
+                <td>{staff?.shift}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+
+      {/* <table className="table table-active">
         <thead>
           <tr>
             <th>ID</th>
@@ -298,10 +367,10 @@ function Staff() {
             ))
           )}
         </tbody>
-      </table>
+      </table> */}
 
       <div>
-        <p>{capitalFirstLetters('vivin richard')}</p>
+        <p>{capitalFirstLetters("vivin richard")}</p>
       </div>
     </div>
   );
