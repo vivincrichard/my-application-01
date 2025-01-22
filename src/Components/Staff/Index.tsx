@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import Select from "react-select";
 import { useDepartments, useStaffCreate, useStaffList } from "./StaffQuery";
 import { genderOptions, IStaff } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
 import { capitalFirstLetters } from "../Utils";
-import { useState } from "react";
 
 type OptionType = { value: string | any; label: string };
 
@@ -31,6 +31,17 @@ function Staff() {
     },
   });
 
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerms, setSearchTerms] = useState<{ [key: string]: string }>({
+    name: "",
+    gender: "",
+    age: "",
+    phoneNumber: "",
+    email: "",
+    role: "",
+    shift: "",
+  });
+
   const clearValues = () =>
     reset({
       name: null,
@@ -42,71 +53,52 @@ function Staff() {
       shift: null,
     });
 
-  const listLength = () => {
-    const l = staffList?.length;
-    return String(Number(l) + 1);
+  const handleSearchChange = (key: string, value: string) => {
+    setSearchTerms((prev) => ({ ...prev, [key]: value }));
   };
 
-  const onsubmit = (formData: any) => {
-    console.log("ssssss");
-
-    const idLength = listLength();
-
-    const payload: IStaff = {
-      id: idLength,
-      name: formData?.name,
-      age: formData?.age,
-      gender: formData?.gender,
-      role: formData?.role,
-      phoneNumber: formData?.phoneNumber,
-      email: formData?.email,
-      shift: Number(formData?.shift ? formData?.shift : undefined),
-    };
-
-    createStaff(payload);
-    clearValues();
-    console.log("submit", payload);
-  };
-
-  // Convert departmentData to the required format for react-select
-  const departmentOptions = departmentData?.map((role) => ({
-    value: role.id, // assuming 'id' is unique for each role
-    label: role.name, // assuming 'name' is the display name
-  }));
-
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // Filter staff based on search term
   const filteredStaffList = staffList?.filter((staff) => {
-    const name = staff?.name?.toLowerCase() ||undefined;
-    const gender = staff?.gender?.toLowerCase() ||undefined;
-    const phoneNumber = staff?.phoneNumber?.toString().toLowerCase() ||undefined;
-    const email = staff?.email?.toLowerCase() ||undefined;
-    const role = staff?.role?.toString().toLowerCase() ||undefined;
-    const shift = staff?.shift?.toString().toLowerCase() ||undefined;
-
-    console.log('mm',name,gender,phoneNumber,email,role,shift);
-    
-
-    // Check if any of the fields include the search term (case insensitive)
-    return (
-      name?.includes(searchTerm.toLowerCase()) ||
-      gender?.includes(searchTerm.toLowerCase()) ||
-      phoneNumber?.includes(searchTerm.toLowerCase()) ||
-      email?.includes(searchTerm.toLowerCase()) ||
-      role?.includes(searchTerm.toLowerCase()) ||
-      shift?.includes(searchTerm.toLowerCase())
+    const overallMatch = Object.values(staff).some((value) =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const columnMatch = Object.entries(searchTerms).every(([key, term]) => {
+      if (!term) return true;
+      return String(staff[key as keyof IStaff])
+        .toLowerCase()
+        .includes(term.toLowerCase());
+    });
+    console.log("sss", overallMatch);
+
+    return overallMatch && columnMatch;
   });
 
-  // watch is act the onChange, we can get the onchange value with 'watch'
-  const values = watch();
-  console.log("Current Form Values:", values,filteredStaffList);
+  const departmentOptions = [
+    { value: null, label: "Select Role" }, // Default option
+    ...(departmentData?.map((role) => ({
+      value: role.id,
+      label: role.name,
+    })) || []),
+  ];
+
+  const onSubmit = (formData: any) => {
+    const newStaff: IStaff = {
+      id: String((staffList?.length || 0) + 1),
+      ...formData,
+      shift: Number(formData.shift || undefined),
+    };
+
+    createStaff(newStaff);
+    clearValues();
+  };
+
+  const watchValues = watch();
+  console.log("Current Form Values:", watchValues, filteredStaffList);
 
   return (
     <div className="m-3">
       <h5>Create Staff</h5>
-      <form onSubmit={handleSubmit(onsubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-end mb-1">
           <button
             type="button"
@@ -156,11 +148,9 @@ function Staff() {
                       {...field}
                       options={genderOptions as OptionType[]}
                       value={genderOptions.find(
-                        (option) => option?.value === field.value
+                        (opt) => opt.value === field.value
                       )}
-                      onChange={(selectedOption) =>
-                        field.onChange(selectedOption?.value)
-                      }
+                      onChange={(opt) => field.onChange(opt?.value)}
                     />
                   )}
                 />
@@ -236,21 +226,11 @@ function Staff() {
                   render={({ field }) => (
                     <Select
                       {...field}
-                      options={[
-                        { value: null, label: "Select a Role" }, // Placeholder option
-                        ...(departmentOptions || []), // Actual departments
-                      ]}
-                      value={
-                        departmentOptions?.find(
-                          (option) => option.value === field.value
-                        ) || {
-                          value: null,
-                          label: "Select a Role",
-                        } // Fallback to placeholder
-                      }
-                      onChange={(selectedOption) => {
-                        field.onChange(selectedOption?.value || null); // Handle null value
-                      }}
+                      options={departmentOptions}
+                      value={departmentOptions?.find(
+                        (opt) => opt.value === field.value
+                      )}
+                      onChange={(opt) => field.onChange(opt?.value)}
                     />
                   )}
                 />
@@ -294,10 +274,12 @@ function Staff() {
         </div>
       </form>
 
+      <h5>Search Staff</h5>
+      {/* Search Inputs */}
       <input
         type="text"
-        className="form-control mb-3"
-        placeholder="Search staff..."
+        placeholder="Search across all columns"
+        className="form-control mb-2"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -305,73 +287,41 @@ function Staff() {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Phone Number</th>
-            <th>E-Mail</th>
-            <th>Role</th>
-            <th>Shift</th>
+            {Object.keys(searchTerms).map((key) => (
+              <th key={key}>
+                {capitalFirstLetters(key)}
+                <input
+                  type="text"
+                  placeholder={`${key}`}
+                  className="form-control"
+                  value={searchTerms[key]}
+                  onChange={(e) => handleSearchChange(key, e.target.value)}
+                />
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {filteredStaffList?.length === 0 ? (
+          {filteredStaffList?.length ? (
+            filteredStaffList.map((staff) => (
+              <tr key={staff.id}>
+                <td>{staff.id}</td>
+                <td>{capitalFirstLetters(staff.name)}</td>
+                <td>{capitalFirstLetters(staff.gender)}</td>
+                <td>{staff.age}</td>
+                <td>{staff.phoneNumber}</td>
+                <td>{staff.email}</td>
+                <td>{staff.role}</td>
+                <td>{staff.shift}</td>
+              </tr>
+            ))
+          ) : (
             <tr>
               <td colSpan={8}>No Data Found</td>
             </tr>
-          ) : (
-            filteredStaffList?.map((staff: IStaff) => (
-              <tr key={staff?.id}>
-                <td>{staff?.id}</td>
-                <td>{capitalFirstLetters(staff?.name)}</td>
-                <td>{capitalFirstLetters(staff?.gender)}</td>
-                <td>{staff?.age}</td>
-                <td>{staff?.phoneNumber}</td>
-                <td>{staff?.email}</td>
-                <td>{staff?.role}</td>
-                <td>{staff?.shift}</td>
-              </tr>
-            ))
           )}
         </tbody>
       </table>
-
-      {/* <table className="table table-active">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Phone Number</th>
-            <th>E-Mail</th>
-            <th>Role</th>
-            <th>Shift</th>
-          </tr>
-        </thead>
-        <tbody>
-          {staffList?.length === 0 ? (
-            <td>No Data Found</td>
-          ) : (
-            staffList?.map((staff: IStaff) => (
-              <tr key={staff?.id}>
-                <td>{staff?.id}</td>
-                <td>{capitalFirstLetters(staff?.name)}</td>
-                <td>{capitalFirstLetters(staff?.gender)}</td>
-                <td>{staff?.age}</td>
-                <td>{staff?.phoneNumber}</td>
-                <td>{staff?.email}</td>
-                <td>{staff?.role}</td>
-                <td>{staff?.shift}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table> */}
-
-      <div>
-        <p>{capitalFirstLetters("vivin richard")}</p>
-      </div>
     </div>
   );
 }
