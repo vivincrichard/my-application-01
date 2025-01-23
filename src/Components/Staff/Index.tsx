@@ -68,8 +68,6 @@ function Staff() {
         .toLowerCase()
         .includes(term.toLowerCase());
     });
-    console.log("sss", overallMatch);
-
     return overallMatch && columnMatch;
   });
 
