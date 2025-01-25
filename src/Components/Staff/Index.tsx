@@ -325,3 +325,7 @@ function Staff() {
 }
 
 export default Staff;
+
+// Object.values() - Returns an array of all the values of an object’s properties (ignores keys). Eg: ["Alice", 30, "New York"]
+// Object.entries() - Returns an array of the object’s key-value pairs as nested arrays. Eg: name: Alice, age: 30, city: New York
+// .some(): An array method that checks whether at least one element in the array satisfies a given condition. return true or false
