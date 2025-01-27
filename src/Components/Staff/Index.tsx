@@ -4,6 +4,7 @@ import { useDepartments, useStaffCreate, useStaffList } from "./StaffQuery";
 import { genderOptions, IStaff } from "./staffService";
 import { Controller, useForm } from "react-hook-form";
 import { capitalFirstLetters } from "../Utils";
+import ShiftType, { shiftEnumType } from "./StaffHelper";
 
 type OptionType = { value: string | any; label: string };
 
@@ -310,7 +311,9 @@ function Staff() {
                 <td>{staff.phoneNumber}</td>
                 <td>{staff.email}</td>
                 <td>{staff.role}</td>
-                <td>{staff.shift}</td>
+                <td>
+                  <ShiftType p={staff.shift as shiftEnumType} />
+                </td>
               </tr>
             ))
           ) : (
