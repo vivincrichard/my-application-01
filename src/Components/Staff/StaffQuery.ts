@@ -17,7 +17,7 @@ export const useStaffCreate = () => {
     mutationFn: (payload: IStaff) => StaffService.create(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.CREATE_STAFF],
+        queryKey: [QueryKeys.LIST_STAFF],
       });
     },
   });
