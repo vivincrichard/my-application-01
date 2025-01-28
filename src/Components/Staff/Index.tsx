@@ -73,7 +73,7 @@ function Staff() {
   });
 
   const departmentOptions = [
-    { value: null, label: "Select Role" }, // Default option
+    { value: null, label: "Select Role" },
     ...(departmentData?.map((role) => ({
       value: role.id,
       label: role.name,
@@ -92,7 +92,10 @@ function Staff() {
   };
 
   const watchValues = watch();
-  console.log("Current Form Values:", watchValues, filteredStaffList);
+
+  const getRoleLabelById = (roleId: number): string => {
+    return departmentData?.find((role) => role.id === roleId)?.name || "--";
+  };
 
   return (
     <div className="m-3">
@@ -274,7 +277,6 @@ function Staff() {
       </form>
 
       <h5>Search Staff</h5>
-      {/* Search Inputs */}
       <input
         type="text"
         placeholder="Search across all columns"
@@ -310,7 +312,7 @@ function Staff() {
                 <td>{staff.age}</td>
                 <td>{staff.phoneNumber}</td>
                 <td>{staff.email}</td>
-                <td>{staff.role}</td>
+                <td>{getRoleLabelById(staff.role)}</td>
                 <td>
                   <ShiftType p={staff.shift as shiftEnumType} />
                 </td>
