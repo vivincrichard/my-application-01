@@ -106,7 +106,12 @@ function Staff() {
   return (
     <div className="m-3">
       <h5 onClick={toggleVisibility}>
-        Create Staff <BiPlusCircle className="text-primary" />
+        Create Staff
+        <button
+          style={{ background: "none", border: "none", cursor: "pointer" }}
+        >
+          <BiPlusCircle className="text-primary" />
+        </button>
       </h5>
       {toggle && (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -146,8 +151,8 @@ function Staff() {
                       },
                       minLength: {
                         value: 5,
-                        message: 'Not exceed than 5'
-                      }
+                        message: "Not exceed than 5",
+                      },
                     })}
                   />
                   {errors.name && (
