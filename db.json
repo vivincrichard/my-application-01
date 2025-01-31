@@ -188,5 +188,66 @@
       "email": "test@example.us",
       "shift": 1
     }
+  ],
+  "patients": [
+    {
+      "patientId": "P12345",
+      "name": "John Doe",
+      "age": 35,
+      "gender": "Male",
+      "dateOfBirth": "1988-03-15",
+      "address": {
+        "street": "123 Elm Street",
+        "city": "Springfield",
+        "state": "IL",
+        "postalCode": "62704",
+        "country": "USA"
+      },
+      "contactNumber": "+1-234-567-8900",
+      "email": "johndoe@example.com",
+      "emergencyContact": {
+        "name": "Jane Doe",
+        "relationship": "Spouse",
+        "contactNumber": "+1-987-654-3210"
+      },
+      "medicalHistory": [
+        {
+          "condition": "Hypertension",
+          "diagnosedDate": "2015-06-20",
+          "status": "Ongoing"
+        },
+        {
+          "condition": "Asthma",
+          "diagnosedDate": "2010-02-10",
+          "status": "Managed"
+        }
+      ],
+      "allergies": ["Penicillin", "Peanuts"],
+      "currentMedications": [
+        {
+          "medicationName": "Lisinopril",
+          "dosage": "10 mg",
+          "frequency": "Once daily"
+        }
+      ],
+      "insuranceDetails": {
+        "provider": "HealthCare Inc.",
+        "policyNumber": "HC12345678",
+        "validUntil": "2025-12-31"
+      },
+      "appointments": [
+        {
+          "appointmentId": "A5678",
+          "date": "2024-01-30",
+          "time": "10:00 AM",
+          "doctor": "Dr. Smith",
+          "department": "Cardiology",
+          "status": "Confirmed"
+        }
+      ],
+      "registrationDate": "2023-09-12",
+      "status": "Active"
+    }
+
   ]
 }
