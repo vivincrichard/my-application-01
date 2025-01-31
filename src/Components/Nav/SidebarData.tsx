@@ -34,8 +34,8 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Support",
-    path: "/support",
+    title: "Patient",
+    path: "/patient",
     icon: <IoIcons.IoMdHelpCircle />,
     cName: "nav-text",
   },
