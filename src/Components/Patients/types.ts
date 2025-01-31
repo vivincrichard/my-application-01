@@ -1,8 +1,12 @@
-export interface Patient {
+export interface IPatientState {
+  patientDetails: IPatient;
+}
+
+export interface IPatient {
   patientId: string;
   name: string;
-  age: number;
-  gender: "Male" | "Female" | "Other";
+  age: number | null;
+  gender: string;
   dateOfBirth: string; // Use Date if preferred
   address: Address;
   contactNumber: string;
@@ -22,13 +26,13 @@ interface Address {
   city: string;
   state: string;
   postalCode: string;
-  country: string;
+  country: number | null;
 }
 
 interface EmergencyContact {
   name: string;
   relationship: string;
-  contactNumber: string;
+  contactNumber: number | null;
 }
 
 interface MedicalHistory {
