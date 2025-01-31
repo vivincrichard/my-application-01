@@ -15,10 +15,10 @@ export interface IPatient {
   medicalHistory: MedicalHistory[];
   allergies: string[];
   currentMedications: Medication[];
-  insuranceDetails: InsuranceDetails;
+  insuranceDetails: InsuranceDetails[];
   appointments: Appointment[];
   registrationDate: string; // Use Date if preferred
-  status: "Active" | "Inactive" | "Archived";
+  status: string;
 }
 
 interface Address {

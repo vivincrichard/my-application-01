@@ -23,12 +23,12 @@ const initialState: IPatientState = {
     relationship:'',
     contactNumber:null
   },
-  medicalHistory: MedicalHistory[],
-  allergies: ''[],
-  currentMedications: Medication[],
-  insuranceDetails: InsuranceDetails,
-  appointments: Appointment[],
+  medicalHistory: [],
+  allergies: [],
+  currentMedications: [],
+  insuranceDetails: [],
+  appointments: [],
   registrationDate: '', // Use Date if preferred
-  status: "Active" | "Inactive" | "Archived"
+  status: '',
     }
 }
