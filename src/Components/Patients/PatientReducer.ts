@@ -26,14 +26,14 @@ const initialState: IPatientState = {
     currentMedications: [],
     insuranceDetails: [],
     appointments: [],
-    registrationDate: "", // Use Date if preferred
+    registrationDate: "",
     status: "",
-  },
+  }
 };
 
-
-export default (state = initialState, action: any) : IPatientState=> {
-  switch (action) {
-    
+export default (state = initialState, action: any): IPatientState => {
+  switch (action.type) {
+    default:
+      return state;
   }
-}
+};
