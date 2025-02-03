@@ -5,6 +5,12 @@
       "name": "Vivin C",
       "contact": 9003360649,
       "email": "vivincrichard@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Rohit ",
+      "contact": 1236547890,
+      "email": "rohit@gmail.com"
     }
   ],
   "hospitals": [
@@ -40,21 +46,34 @@
         "city": "Tinnanur",
         "pincode": 100
       }
+    },
+    {
+      "id": "4",
+      "hospitalName": "KG",
+      "registrationNo": 416555265,
+      "location": {
+        "country": "IN",
+        "state": "TN",
+        "city": "Coimbatore",
+        "pincode": 641016
+      }
     }
   ],
   "doctors": [
     {
       "id": "1",
-      "firstName": "Vivin C",
-      "lastName": "Christopher",
-      "contact": 9003360649,
+      "firstName": "Rohit",
+      "lastName": "S",
+      "contact": "9003360649",
       "email": "AWS@gmail.com",
       "qualification": [
         "MBBS",
-        "MS"
+        "MS",
+        "ECE"
       ],
       "specialization": [
-        "cardiology"
+        "cardiology",
+        "Cyber Security"
       ],
       "MRI": 123456,
       "stateMedicalCouncil": "Chennai",
@@ -222,7 +241,10 @@
           "status": "Managed"
         }
       ],
-      "allergies": ["Penicillin", "Peanuts"],
+      "allergies": [
+        "Penicillin",
+        "Peanuts"
+      ],
       "currentMedications": [
         {
           "medicationName": "Lisinopril",
@@ -246,8 +268,8 @@
         }
       ],
       "registrationDate": "2023-09-12",
-      "status": "Active"
+      "status": "Active",
+      "id": "998c"
     }
-
   ]
 }
