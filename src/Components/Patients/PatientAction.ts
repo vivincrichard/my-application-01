@@ -14,5 +14,3 @@ export const setPatientsLoading = (isLoading: boolean) => ({
   type: SET_PATIENTS_LOADING,
   payload: isLoading,
 });
-
-
