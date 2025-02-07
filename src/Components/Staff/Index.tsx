@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { useDepartments, useStaffCreate, useStaffList } from "./StaffQuery";
-import { genderOptions, IStaff } from "./staffService";
+import { genderOptions, IStaff } from "./StaffService";
 import { Controller, useForm } from "react-hook-form";
 import { capitalFirstLetters } from "../Utils";
 import ShiftType, { shiftEnumType } from "./StaffHelper";
