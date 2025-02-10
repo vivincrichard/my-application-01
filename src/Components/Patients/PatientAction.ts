@@ -27,7 +27,3 @@ export const createPatient =
       dispatch(setPatientsLoading(false))
     }catch{}
   };
-
-
-
-  
