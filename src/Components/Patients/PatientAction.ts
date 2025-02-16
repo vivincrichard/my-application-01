@@ -1,7 +1,7 @@
 // Action Creator
 
 import { ThunkAction } from "redux-thunk";
-import { IPatient, SET_PATIENTS, SET_PATIENTS_LOADING } from "./types";
+import { IPatient, PATIENT_LOADING, SET_PATIENTS, SET_PATIENTS_LOADING } from "./types";
 import { Action } from "redux";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
@@ -17,6 +17,11 @@ export const setPatientsLoading = (isLoading: boolean) => ({
   type: SET_PATIENTS_LOADING,
   payload: isLoading,
 });
+
+export const patientLoading = (payload: boolean) => ({
+  type: PATIENT_LOADING,
+  payload,
+})
 
 export const createPatient =
   (patientData: IPatient): ThunkAction<void, null, null, Action<string>> =>

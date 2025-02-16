@@ -1,13 +1,14 @@
 import {
   FETCH_PATIENT_DETAILS,
   IPatientState,
+  PATIENT_LOADING,
   SET_PATIENTS,
   SET_PATIENTS_LOADING,
 } from "./types";
 
 const initialState: IPatientState = {
   patientDetails: {
-    patientId: "",
+    patientId: "1",
     name: "",
     age: null,
     gender: "",
@@ -35,6 +36,7 @@ const initialState: IPatientState = {
     status: "",
   },
   isLoading: false,
+  patientLoading: false
 };
 
 export default (state = initialState, action: any): IPatientState => {
@@ -45,6 +47,8 @@ export default (state = initialState, action: any): IPatientState => {
       return { ...state, patientDetails: action.payload };
     case SET_PATIENTS_LOADING:
       return { ...state, isLoading: action.payload };
+    case PATIENT_LOADING:
+      return {...state,patientLoading: action.payload}
     default:
       return state;
   }

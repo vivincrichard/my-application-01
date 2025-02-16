@@ -210,7 +210,7 @@
   ],
   "patients": [
     {
-      "patientId": "P12345",
+      "patientId": "1",
       "name": "John Doe",
       "age": 35,
       "gender": "Male",
