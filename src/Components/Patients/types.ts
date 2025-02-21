@@ -1,8 +1,3 @@
-export const SET_PATIENTS = "SET_PATIENTS";
-export const FETCH_PATIENT_DETAILS = "FETCH_PATIENT_DETAILS";
-export const SET_PATIENTS_LOADING = "SET_PATIENTS_LOADING";
-export const PATIENT_LOADING = "PATIENT_LOADING";
-
 export interface IPatientState {
   patientDetails: IPatient;
   isLoading: boolean;
