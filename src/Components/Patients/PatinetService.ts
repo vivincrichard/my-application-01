@@ -13,7 +13,8 @@ export class Patient {
   }
 
   static delete = async (id:string) => {
-    
+    const response = await axios.delete(`http://localhost:4000/patients/${id}`);
+    return response.data;
   }
 
   static getById = async (id: string) => {
@@ -21,6 +22,9 @@ export class Patient {
     return response.data;
   };
 
-
+ 
+  static fetchAll = async () => {
+    
+  }
 
 }
