@@ -1,8 +1,3 @@
-export interface IPatientState {
-  patientDetails: IPatient;
-  isLoading: boolean;
-  patientLoading: boolean;
-}
 
 export interface IPatient {
   patientId: string;
