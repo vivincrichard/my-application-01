@@ -33,21 +33,19 @@ const CreateUpdateDoctor = (props: IProps) => {
     control,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     defaultValues: {
       firstName: props?.selectedId ? getDoctor?.firstName : "",
       lastName: props?.selectedId ? getDoctor?.lastName : "",
       contact: props?.selectedId ? getDoctor?.contact : "",
       email: props?.selectedId ? getDoctor?.email : "",
-      qualification: props?.selectedId
-        ? getDoctor?.qualification
-        : [""], // Default qualification for edit
-      specialization: props?.selectedId
-        ? getDoctor?.specialization
-        : [""],
+      qualification: props?.selectedId ? getDoctor?.qualification : [""], // Default qualification for edit
+      specialization: props?.selectedId ? getDoctor?.specialization : [""],
     },
   });
 
+  // useFieldArray is used to manage dynamic fields in the form
   const {
     fields: qualificationFields,
     append: qualificationAppend,
@@ -71,7 +69,7 @@ const CreateUpdateDoctor = (props: IProps) => {
       reset({
         firstName: getDoctor.firstName || "",
         lastName: getDoctor.lastName || "",
-        contact: getDoctor.contact || "" ,
+        contact: getDoctor.contact || "",
         email: getDoctor.email || "",
         qualification: getDoctor.qualification || [""], // Fill qualification on edit
         specialization: getDoctor.specialization || [""],
@@ -98,6 +96,11 @@ const CreateUpdateDoctor = (props: IProps) => {
     }
   };
 
+  const values = watch();
+  const firstName = watch('firstName');
+
+  console.log("values", values);
+
   return (
     <div className="form-group">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -111,7 +114,13 @@ const CreateUpdateDoctor = (props: IProps) => {
               id="firstName"
               type="text"
               className="form-control"
-              {...register("firstName", { required: "First Name is required" })}
+              {...register("firstName", {
+                required: "First Name is Required",
+                minLength: {
+                  value: 3,
+                  message: "First Name must be at least 3 characters",
+                },
+              })}
             />
             {errors.firstName && (
               <p className="text-danger">{errors.firstName?.message}</p>
@@ -127,7 +136,11 @@ const CreateUpdateDoctor = (props: IProps) => {
               id="lastName"
               type="text"
               className="form-control"
-              {...register("lastName", { required: "Last Name is required" })}
+              {...register("lastName", {
+                required: firstName
+                  ? "Last Name is Required"
+                  : "Both First & Last Name is required",
+              })}
             />
             {errors.lastName && (
               <p className="text-danger">{errors.lastName?.message}</p>
