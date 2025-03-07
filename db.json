@@ -7,7 +7,7 @@
       "email": "vivincrichard@gmail.com"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Rohit ",
       "contact": 1236547890,
       "email": "rohit@gmail.com"
@@ -56,6 +56,17 @@
         "state": "TN",
         "city": "Coimbatore",
         "pincode": 641016
+      }
+    },
+    {
+      "id": "5",
+      "hospitalName": "aswath",
+      "registrationNo": 5646,
+      "location": {
+        "country": "IN",
+        "state": "TN",
+        "city": "Coimbatore",
+        "pincode": 647444
       }
     }
   ],
